@@ -17,9 +17,10 @@
 # source('functions/csgo_api.R')
 # 
 # db_ach <- csgo_api_ach(key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', user_id = '76561198263364899')
-# db_stats <- csgo_api_stats(key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', user_id = '76561198263364899')
-# db_friend<- csgo_api_friend(key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', user_id = '76561198263364899')
-
+# db_stats <- csgo_api_stats(key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', user_id = '76561197996007619')
+# db_friend <- csgo_api_friend(key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', user_id = '76561198263364899')
+# db_profile <- csgo_api_profile(key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', user_id = '76561198263364899')
+ 
 
 require(httr)
 require(jsonlite)
@@ -88,6 +89,26 @@ csgo_api_friend <- function(key, user_id)
   
 }
    
+
+csgo_api_profile <- function(key, user_id)
+{
+  # Profile
+  call_cs_profile <- paste0('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?',
+                            '&key=', key,
+                            '&steamids=', user_id)
   
+  api_query_profile <- GET(call_cs_profile)
+  
+  api_content_profile <- content(api_query_profile, 'text')
+  
+  json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
+  
+  db_profile <- as.data.frame(json_content_profile$response$players)
+  
+  
+  # RETURN
+  return(db_profile)
+  
+} 
 
 

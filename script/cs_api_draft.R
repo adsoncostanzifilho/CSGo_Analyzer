@@ -56,6 +56,20 @@ json_content_friend <- fromJSON(api_content_friend, flatten = TRUE)
 db_friend <- as.data.frame(json_content_friend$friendslist$friends)
 
 
+# Profile
+call_cs_profile <- paste0('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?',
+                         '&key=', key,
+                         '&steamids=', user_id)
+
+api_query_profile <- GET(call_cs_profile)
+
+api_content_profile <- content(api_query_profile, 'text')
+
+json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
+
+db_profile <- as.data.frame(json_content_profile$response$players)
+
+
 
 
 
