@@ -1,11 +1,12 @@
 # ui ----
 require(shiny)
 require(shinydashboard)
+require(shinydashboardPlus)
 
 
-
-ui <- dashboardPage(
-
+ui <- dashboardPagePlus(
+  collapse_sidebar = TRUE,
+  
   # PAGE NAME
   title = "CS Analyser", 
   
@@ -17,7 +18,12 @@ ui <- dashboardPage(
   
   # SIDE BAR
   dashboardSidebar(
-    collapsed = TRUE
+    sidebarMenu(
+      menuItem("Home", tabName = "home", icon = icon("award")),
+      menuItem("Descriptive", tabName = "descriptive", icon = icon("skull")),
+      menuItem("Prediction", tabName = "prediction", icon = icon("skull")),
+      menuItem("About", tabName = "about", icon = icon("address-card"))
+    )
   ),
   
   # BODY
@@ -31,6 +37,44 @@ ui <- dashboardPage(
     # THEME 
     tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")), 
     
-    
+    # TABS
+    tabItems(
+      
+      #- HOME TAB
+      tabItem(
+        tabName = "home",
+        
+        fluidRow(h1('home')
+        )
+      ),
+      
+      #- DESCRIPTIVE TAB
+      tabItem(
+        tabName = "descriptive",
+        
+        fluidRow(
+          h1('descriptive')
+        )
+      ),
+      
+      #- PREDICTION TAB
+      tabItem(
+        tabName = "prediction",
+        
+        fluidRow(
+          h1('prediction')
+        )
+      ),
+      
+      #- ABOUT TAB
+      tabItem(
+        tabName = "about",
+        
+        fluidRow(
+          h1('about')
+        )
+      )
+    )
+      
   )
 )

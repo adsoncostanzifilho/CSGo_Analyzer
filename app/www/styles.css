@@ -1,3 +1,17 @@
+/* FONT */
+@font-face {
+  font-family:"Quantico";
+  src: url("Quantico-Regular.ttf") format("truetype");
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Quantico','Changa','Noto Sans',sans-serif;
+}
+
+body {
+  font-family: 'Quantico','Changa','Noto Sans',sans-serif;
+}
+
 
 /*Logo*/
 img {
@@ -16,8 +30,13 @@ img {
     background-color: #232a30;
 }
 
-.skin-blue .main-header .navbar .sidebar-toggle, .skin-blue:hover .main-header:hover .navbar:hover .sidebar-toggle:hover{
+.skin-blue .main-header .navbar .sidebar-toggle{
     color: #fff;
+    background-color: #232a30;
+}
+
+.skin-blue:hover .main-header:hover .navbar:hover .sidebar-toggle:hover{
+    color: #ce8404;
     background-color: #232a30;
 }
 
@@ -29,8 +48,30 @@ img {
     padding-bottom: 15px;
 }
 
+.sidebar-mini.sidebar-collapse .main-header .logo {
+    width: 120px;
+    position: relative !important;
+    max-height: 100px !important;
+    z-index: 1030 !important;
+    padding-top: 0px !important;
+    padding-bottom: 15px !important;
+}
+
 
 /*side bar*/
 .main-sidebar, .skin-blue .wrapper {
     background-color: #232a30 !important;
 }
+
+.left-side, .main-sidebar {
+    top: 30px;
+}
+
+.skin-blue .sidebar-menu > li.active > a, .skin-blue .sidebar-menu > li:hover > a {
+    color: #ce8404;
+    background: #232a30;
+    border-left-color: #ce8404;
+}
+
+
+

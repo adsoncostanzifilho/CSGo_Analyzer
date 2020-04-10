@@ -5,7 +5,7 @@
 source("packages.r")
 
 
-db <- read_rds("data/Csgo_data.rds")
+db <- readRDS("data/Csgo_data.rds")
 
 
 #### Graf 1 ####
