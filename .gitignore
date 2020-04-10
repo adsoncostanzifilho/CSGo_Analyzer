@@ -4,3 +4,5 @@
 .Ruserdata
 *.xlsx
 *.xls
+api_documents.txt
+*.txt
