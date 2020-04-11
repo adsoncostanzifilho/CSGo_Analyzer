@@ -43,9 +43,40 @@ ui <- dashboardPagePlus(
       #- HOME TAB
       tabItem(
         tabName = "home",
-        
-        fluidRow(h1('home')
+        fluidRow(
+          column(
+            width = 12,
+            class = 'home_welcome',
+            HTML('<h1>Welcome to the <b>CS Go Analiser</b></h1>')
+          ),
+          
+          column(
+            width = 12,
+            hr()
+          ),
+          
+          column(
+            width = 12,
+            class = 'search_go',
+            box(
+              textInput(
+                inputId = 'user_id', 
+                label = 'Please enter your Steam ID',
+                value = '',
+                placeholder = '76561198263364899')
+            ),
+            
+            actionButton(
+              inputId = 'go',
+              label = 'GO',
+              class = 'btn_go',
+              icon = icon('skull')
+            )
+            
+          )
         )
+
+        
       ),
       
       #- DESCRIPTIVE TAB

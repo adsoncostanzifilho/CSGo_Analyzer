@@ -6,6 +6,7 @@
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-family: 'Quantico','Changa','Noto Sans',sans-serif;
+    color: #232a30;
 }
 
 body {
@@ -72,6 +73,61 @@ img {
     background: #232a30;
     border-left-color: #ce8404;
 }
+
+/*HOME*/
+.home_welcome
+{
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border: 0;
+    border-top-color: currentcolor;
+    border-top-style: none;
+    border-top-width: 0px;
+  border-top: 2px solid #232a30;
+}
+
+.btn_go, .btn_go:focus, .btn_go:active {
+    background-color: #232a30 !important;
+    color: #ce8404 !important;
+    border-color: #232a30 !important;
+    width: 130px;
+    height: 50px;
+    font-size: 17px;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    
+}
+
+.btn_go:hover {
+    background-color: #232a30bf !important;
+    color: #ce8404 !important;
+    border-color: #232a30 !important;
+    width: 130px;
+    height: 50px;
+    font-size: 17px;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #fff;
+    border-top: 3px solid #232a30;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.33);
+    text-align: center;
+}
+
 
 
 
