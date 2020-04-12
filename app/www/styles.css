@@ -128,6 +128,57 @@ hr {
     text-align: center;
 }
 
+.search_go {
+  left: 18%;
+  padding-bottom: 25px;
+}
+
+.box-widget, .widget-user {
+    position: relative;
+    border-radius: 3px;
+    background: #232a30;
+    border-top: 3px solid #ce8404;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.37);
+    color: #ce8404;
+    left: 18%;
+    text-align: left;
+}
+
+h3.widget-user-username {
+  color: #ce8404;
+}
+
+.widget-user .widget-user-image > img {
+    width: 90px;
+    height: auto;
+    border: 3px solid #ce8404;
+}
+
+.user_box {
+    width: 100%;
+    left: 4%;
+}
+
+.fa.fa-behance, .fa.fa-behance-square, .fa.fa-steam, .fa.fa-steam-square {
+    font-family: "Font Awesome 5 Brands";
+    font-weight: 400;
+    font-size: 25px;
+    color: #ce8404;
+}
 
 
-
+.box-footer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top: 1px solid #f4f4f4;
+    padding: 10px;
+        padding-top: 10px;
+    background-color: #fff;
+    color: #232a30;
+    text-align: center;
+    font-size: 18px;
+}

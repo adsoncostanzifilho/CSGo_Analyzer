@@ -3,6 +3,10 @@ require(shiny)
 require(shinydashboard)
 require(shinydashboardPlus)
 
+source('functions_app/csgo_api.R')
+
+# set key
+api_key <<- 'XXXXXX'
 
 ui <- dashboardPagePlus(
   collapse_sidebar = TRUE,
@@ -72,8 +76,10 @@ ui <- dashboardPagePlus(
               class = 'btn_go',
               icon = icon('skull')
             )
-            
-          )
+          ),
+          
+          uiOutput('user_info')
+          
         )
 
         
