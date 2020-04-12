@@ -6,7 +6,7 @@ require(shinydashboardPlus)
 source('functions_app/csgo_api.R')
 
 # set key
-api_key <<- 'XXXXXX'
+api_key <<- 'xxxxx'
 
 ui <- dashboardPagePlus(
   collapse_sidebar = TRUE,
@@ -26,6 +26,7 @@ ui <- dashboardPagePlus(
       menuItem("Home", tabName = "home", icon = icon("award")),
       menuItem("Descriptive", tabName = "descriptive", icon = icon("skull")),
       menuItem("Prediction", tabName = "prediction", icon = icon("skull")),
+      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
       menuItem("About", tabName = "about", icon = icon("address-card"))
     )
   ),
