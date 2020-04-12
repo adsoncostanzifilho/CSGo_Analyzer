@@ -38,7 +38,9 @@ server <- function(input, output, session)
               db_stats$profileurl, 
               '" target="_blank" class="btn btn-steam"><i class="fa fa-steam left"></i></a>')
           ),
-          footer = paste0('Welcome ', db_stats$personaname, ', now you are able to use the entire page!')
+          footer = HTML(paste0('<h4>Welcome <b>',
+                          db_stats$personaname, 
+                          '</b>, now you are able to use the entire page!</h4>'))
           
         )
       )

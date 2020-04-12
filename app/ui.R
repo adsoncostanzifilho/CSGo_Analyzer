@@ -6,7 +6,7 @@ require(shinydashboardPlus)
 source('functions_app/csgo_api.R')
 
 # set key
-api_key <<- 'xxxxx'
+api_key <<- 'xxxx'
 
 ui <- dashboardPagePlus(
   collapse_sidebar = TRUE,
