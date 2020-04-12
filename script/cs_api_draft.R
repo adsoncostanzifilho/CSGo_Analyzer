@@ -9,7 +9,8 @@
 require(httr)
 require(jsonlite)
 
-key <- 'xxxx'
+source('app/functions_app/set_key.R')
+
 user_id <- '76561198263364899'
 
 # Achievements
