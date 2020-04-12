@@ -14,9 +14,8 @@ This project was developed by
 easy to analyze your own CS Go data in R.
 
 You will find at this repository a couple of functions to access and
-extract all data available on the Steam’s API related to CS GO. It was
-also developed and stored here a Shiny App for you analyse your own data
-in a more simple way.
+extract all data available on the Steam’s API related to CS GO, and also
+a Shiny App for you analyze your own data in a more simple way.
 
 The functions
 -------------
