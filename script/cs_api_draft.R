@@ -9,8 +9,6 @@
 require(httr)
 require(jsonlite)
 
-source("functions_app/")
-
 key <- 'xxxx'
 user_id <- '76561198263364899'
 
