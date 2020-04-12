@@ -8,12 +8,6 @@
 
 require(httr)
 require(jsonlite)
-<<<<<<< HEAD
-key <- 'B8A56746036078F2D655CB3F1073F7DF'
-=======
-key <- 'xxxx'
->>>>>>> ee182bae0c00bb75bc71542365bc434af308c5f8
-user_id <- '76561198263364899'
 
 # Achievements
 call_cs_ach <- paste0('http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=730',
