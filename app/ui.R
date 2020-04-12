@@ -4,6 +4,7 @@ require(shinydashboard)
 require(shinydashboardPlus)
 
 source('functions_app/csgo_api.R')
+source('functions_app/set_key.r')
 
 # set key
 source('functions_app/set_key.R')
