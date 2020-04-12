@@ -6,6 +6,7 @@
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     font-family: 'Quantico','Changa','Noto Sans',sans-serif;
+    color: #232a30;
 }
 
 body {
@@ -75,3 +76,111 @@ img {
 
 
 
+/*HOME*/
+.home_welcome
+{
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+hr {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border: 0;
+    border-top-color: currentcolor;
+    border-top-style: none;
+    border-top-width: 0px;
+  border-top: 2px solid #232a30;
+}
+
+.btn_go, .btn_go:focus, .btn_go:active {
+    background-color: #232a30 !important;
+    color: #ce8404 !important;
+    border-color: #232a30 !important;
+    width: 130px;
+    height: 50px;
+    font-size: 17px;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    
+}
+
+.btn_go:hover {
+    background-color: #232a30bf !important;
+    color: #ce8404 !important;
+    border-color: #232a30 !important;
+    width: 130px;
+    height: 50px;
+    font-size: 17px;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #fff;
+    border-top: 3px solid #232a30;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.33);
+    text-align: center;
+}
+
+.search_go {
+  left: 18%;
+  padding-bottom: 25px;
+}
+
+.box-widget, .widget-user {
+    position: relative;
+    border-radius: 3px;
+    background: #232a30;
+    border-top: 3px solid #ce8404;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.37);
+    color: #ce8404;
+    left: 18%;
+    text-align: left;
+}
+
+h3.widget-user-username {
+  color: #ce8404;
+}
+
+.widget-user .widget-user-image > img {
+    width: 150px;
+    height: auto;
+    border: 3px solid #ce8404;
+}
+
+.user_box {
+    width: 100%;
+    left: 4%;
+}
+
+.fa.fa-behance, .fa.fa-behance-square, .fa.fa-steam, .fa.fa-steam-square {
+    font-family: "Font Awesome 5 Brands";
+    font-weight: 400;
+    font-size: 25px;
+    color: #ce8404;
+}
+
+
+.box-footer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top: 1px solid #f4f4f4;
+    padding: 10px;
+        padding-top: 10px;
+    background-color: #fff;
+    color: #232a30;
+    text-align: center;
+    font-size: 18px;
+}

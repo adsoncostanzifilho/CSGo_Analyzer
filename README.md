@@ -1,0 +1,28 @@
+CS GO Analyzer <img src="app/www/img/CSGo_analyzer_sticker.PNG" align="right" width="120" />
+============================================================================================
+
+<br>
+
+Overview
+--------
+
+If you like **CS GO** and **R** probably you will enjoy this repository!
+
+This project was developed by
+[Adson](https://github.com/adsoncostanzifilho) and
+[Rodrigo](https://github.com/Rodrigo-Fontoura), with the goal of make
+easy to analyze your own CS Go data in R.
+
+You will find at this repository a couple of functions to access and
+extract all data available on the Steam’s API related to CS GO, and also
+a Shiny App for you analyze your own data in a more simple way.
+
+The functions
+-------------
+
+TBD
+
+The App
+-------
+
+TBD
