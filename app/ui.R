@@ -12,12 +12,12 @@ ui <- dashboardPagePlus(
   collapse_sidebar = TRUE,
   
   # PAGE NAME
-  title = "CS Analyser", 
+  title = "CS Analyzer", 
   
   
   # HEADER
   dashboardHeader(
-    title = tags$img(src = 'img/cs_logo.PNG', class = 'main_logo')
+    title = tags$img(src = 'img/cs_logo2.PNG', class = 'main_logo')
   ),
   
   # SIDE BAR
@@ -51,7 +51,7 @@ ui <- dashboardPagePlus(
           column(
             width = 12,
             class = 'home_welcome',
-            HTML('<h1>Welcome to the <b>CS Go Analiser</b></h1>')
+            HTML('<h1>Welcome to the <b>CS Go Analyzer</b></h1>')
           ),
           
           column(
