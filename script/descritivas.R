@@ -4,7 +4,7 @@
 require(dplyr)
 require(plotly)
 
-#source("packages.r")
+source("packages.r")
 
 
 db <- readRDS("data/Csgo_data.rds")

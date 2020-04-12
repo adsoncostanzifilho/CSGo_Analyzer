@@ -8,7 +8,7 @@
 
 require(httr)
 require(jsonlite)
-key <- 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+key <- 'B8A56746036078F2D655CB3F1073F7DF'
 user_id <- '76561198263364899'
 
 # Achievements
