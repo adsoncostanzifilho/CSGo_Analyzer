@@ -4,7 +4,7 @@ source('app/functions_app/set_key.R')
 source('functions/csgo_api.R')
 source("packages.r")
 
-user_id <- '76561198005310929'
+user_id <- '76561198263364899'
 
 
 stats <- csgo_api_stats(api_key,user_id)
@@ -27,25 +27,5 @@ stats <- stats %>% mutate(category = case_when(grepl("total_wins_map",name) ~ "r
                           name=="total_deaths" ~ "total de mortes",
                           name=="total_damage_done" ~ "total de dano causado",
                           name=="	total_progressive_matches_won" ~ "total de vitorias consecutivas"
-                          
-                          
-            
-                          	
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          
-                          ))
+                           ))
 
-
-
-friends <- csgo_api_friend(api_key,user_id)
-
-#total_matches_won

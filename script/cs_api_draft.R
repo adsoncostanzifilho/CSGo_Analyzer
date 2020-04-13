@@ -72,6 +72,20 @@ json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
 db_profile <- as.data.frame(json_content_profile$response$players)
 
 
+# Recent games of account
+call_cs_matchs <- paste0('http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?',
+                          '&key=', key,
+                          '&steamids=', user_id)
+
+api_query_profile <- GET(call_cs_matchs)
+
+api_content_profile <- content(api_query_profile, 'text')
+
+json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
+
+#db_matchs <- as.data.frame(json_content_profile$response$players)
+
+
 
 
 
