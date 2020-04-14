@@ -7,9 +7,9 @@ source("packages.r")
 
 create_df_stats_user <- function(api_key,user_id){
   
-  suporte_armas <- read_excel("data/armas csgo.xlsx",1) %>% mutate(DESC= toupper(DESC))
-  suporte_mapas <- read_excel("data/armas csgo.xlsx",2) %>% mutate(DESC= toupper(DESC))
-  suporte_stats <- read_excel("data/armas csgo.xlsx",3) %>% mutate(DESC= toupper(DESC))
+  suporte_armas <- read_rds("data/armas.rds") %>% mutate(DESC= toupper(DESC))
+  suporte_mapas <- read_rds("data/mapas.rds") %>% mutate(DESC= toupper(DESC))
+  suporte_stats <- read_rds("data/stats.rds") %>% mutate(DESC= toupper(DESC))
   
   stats <- csgo_api_stats(api_key,user_id)
   
