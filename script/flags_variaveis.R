@@ -2,13 +2,14 @@
 
 source('app/functions_app/set_key.R')
 source('functions/csgo_api.R')
+source('functions/create_df_userid.R')
 source("packages.r")
 
 user_id <- '76561198263364899'
 
-suporte_armas <- read_excel("data/armas csgo.xlsx",1) %>% mutate(DESC= toupper(DESC))
-suporte_mapas <- read_excel("data/armas csgo.xlsx",2) %>% mutate(DESC= toupper(DESC))
-suporte_stats <- read_excel("data/armas csgo.xlsx",3) %>% mutate(DESC= toupper(DESC))
+suporte_armas <- read_rds("data/armas.rds") %>% mutate(DESC= toupper(DESC))
+suporte_mapas <- read_rds("data/mapas.rds") %>% mutate(DESC= toupper(DESC))
+suporte_stats <- read_rds("data/stats.rds") %>% mutate(DESC= toupper(DESC))
 
 
 stats <- csgo_api_stats(api_key,user_id)
