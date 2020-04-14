@@ -86,6 +86,37 @@ json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
 #db_matchs <- as.data.frame(json_content_profile$response$players)
 
 
+username <- 'luishzp'
+
+steam_user_id <-
+  function(key, username) {
+    
+    `%>%` <- magrittr::`%>%` 
+    
+    call_steam_id <-
+      sprintf(
+        'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?&key=%s&vanityurl=%s',
+        key,
+        username
+      )
+    
+    steam_content <-
+      call_steam_id %>% 
+      httr::GET() %>% 
+      httr::content() %>% 
+      .$response
+    
+    if(steam_content$success != 1) {
+      
+      return("User not found")
+      
+    } else {
+      
+      return(steam_content$steamid)
+      
+    }
+    
+  }
 
 
 
