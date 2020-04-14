@@ -26,10 +26,13 @@ require(httr)
 require(jsonlite)
 csgo_api_ach <- function(key, user_id)
 {
+  
   # Achievements
-  call_cs_ach <- paste0('http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=730',
-                        '&key=', key,
-                        '&steamid=', user_id)
+  call_cs_ach <- sprintf(
+    'http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?appid=730&key=%s&steamid=%s',
+    key,
+    user_id
+  )
   
   api_query_ach <- GET(call_cs_ach)
   
@@ -48,12 +51,12 @@ csgo_api_ach <- function(key, user_id)
 csgo_api_stats <- function(key, user_id)
 {
   # Stats
-  api_name <- '1458786300'
-  
-  call_cs_stats <- paste0('http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730',
-                          '&key=', key,
-                          '&steamid=', user_id,
-                          '&apiname=', api_name)
+  call_cs_stats <- sprintf(
+    'http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=730&key=%s&steamid=%s&apiname=%s',
+    key,
+    user_id,
+    '1458786300'
+  )
   
   api_query_stats <- GET(call_cs_stats)
   
@@ -71,10 +74,11 @@ csgo_api_stats <- function(key, user_id)
 csgo_api_friend <- function(key, user_id)
 {
   # Friends
-  call_cs_friend <- paste0('http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?appid=730',
-                           '&key=', key,
-                           '&steamid=', user_id,
-                           '&relationship=friend')
+  call_cs_friend <- sprintf(
+    'http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?appid=730&relationship=friend&key=%s&steamid=%s',
+    key,
+    user_id
+  )
   
   api_query_friend <- GET(call_cs_friend)
   
@@ -93,9 +97,11 @@ csgo_api_friend <- function(key, user_id)
 csgo_api_profile <- function(key, user_id)
 {
   # Profile
-  call_cs_profile <- paste0('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?',
-                            '&key=', key,
-                            '&steamids=', user_id)
+  call_cs_profile <- sprintf(
+    'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?&key=%s&steamids=%s',
+    key,
+    user_id
+  )
   
   api_query_profile <- GET(call_cs_profile)
   
@@ -110,5 +116,38 @@ csgo_api_profile <- function(key, user_id)
   return(db_profile)
   
 } 
+
+
+csgo_api_profile_by_name <- function(key, username)
+{
+  # Profile by user name
+  call_cs_profile <- sprintf(
+    'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?&key=%s&vanityurl=%s',
+    key,
+    username
+  )
+  
+  api_query_profile <- GET(call_cs_profile)
+  
+  api_content_profile <- content(api_query_profile, 'text')
+  
+  json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
+  
+  db_profile <- as.data.frame(json_content_profile$response)
+  
+  # RETURN
+  if(db_profile$success != 1) 
+  {
+    return("User not found")
+  } 
+  
+  if(db_profile$success == 1) 
+  {
+    return(db_profile$steamid)
+  }
+  
+}
+
+
 
 
