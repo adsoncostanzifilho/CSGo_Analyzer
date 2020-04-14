@@ -13,6 +13,8 @@ create_df_stats_user <- function(api_key,user_id){
   
   stats <- csgo_api_stats(api_key,user_id)
   
+  profile_name <- csgo_api_profile(api_key,user_id) #$personaname
+  
   stats2 <- stats
   
   stats2$label = NA
@@ -46,9 +48,9 @@ create_df_stats_user <- function(api_key,user_id){
     stats2$type[pos] <- suporte_stats$CATEGORIA[i]
   }
   
-  stats2 <- stats2 %>% filter(!is.na(label))
+  stats2 <- stats2 %>% filter(!is.na(label)) %>% mutate(player_name = profile_name)
   
-    lista_db <- list(db_raw=stats,db_clean=stats2)
+    lista_db <- list(db_raw=stats,db_clean=stats2,player=profile_name)
   
 }
 
