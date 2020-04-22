@@ -6,11 +6,24 @@ server <- function(input, output, session)
   # USER BOX
   user_box <- eventReactive(input$go, {
     
-    # USER ID
-    if(!is.na(as.numeric(input$user_id)))
+    # IF NULL ENTRY FROM USER
+    if(input$user_id == '')
     {
-      db_stats <- csgo_api_profile(key = api_key, user_id = input$user_id)
+      user_return <- column(
+        width = 12,
+        class = 'home_welcome',
+        HTML('
+          <h3>Please check if your accont status is <b>public</b>, 
+           make sure your <b>Steam ID</b> is spelled correctly and <b>try again</b>!</h3>'))
+      
+      return(user_return)
     }
+    
+    
+    # USER ID
+    db_stats <- csgo_api_profile(key = api_key, user_id = input$user_id)
+    
+    
     
     # USER NAME
     if(is.na(as.numeric(input$user_id)))
@@ -20,6 +33,7 @@ server <- function(input, output, session)
     }
     
     
+    # RETURN
     if(nrow(db_stats) == 0)
     {
       user_return <- column(
@@ -27,8 +41,7 @@ server <- function(input, output, session)
         class = 'home_welcome',
         HTML('
           <h3>Please check if your accont status is <b>public</b>, 
-           make sure your <b>Steam ID</b> is spelled correctly and <b>try again</b>!</h3>')
-      )
+           make sure your <b>Steam ID</b> is spelled correctly and <b>try again</b>!</h3>'))
       
       return(user_return)
     }
