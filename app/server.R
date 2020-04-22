@@ -1,6 +1,7 @@
 # server ----
 server <- function(input, output, session)
 {
+  observe_helpers(withMathJax = TRUE)
   
   # USER BOX
   user_box <- eventReactive(input$go, {

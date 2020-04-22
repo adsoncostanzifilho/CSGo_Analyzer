@@ -66,7 +66,23 @@ ui <- dashboardPagePlus(
                 inputId = 'user_id', 
                 label = 'Please enter your Steam ID',
                 value = '',
-                placeholder = '76561198263364899')
+                placeholder = '76561198263364899') %>%
+                helper(
+                  icon = "question",
+                  colour = "#ce8404",
+                  type = "inline",
+                  title = "Inline Help",
+                  content = c("This helpfile is defined entirely in the UI!",
+                              "This is on a new line.",
+                              "This is some <b>HTML</b>.",
+                              "Note this modal has a different button label, fades in and is harder to close."),
+                  buttonLabel = 'Got it!')
+              # helper(
+                #   icon = "question",
+                #   colour = "green",
+                #   type = "markdown",
+                #   content = "Columns"),
+             
             ),
             
             actionButton(
