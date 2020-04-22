@@ -9,7 +9,7 @@ source('functions_app/csgo_api.R')
 source('functions_app/set_key.R')
 
 ui <- dashboardPagePlus(
-  collapse_sidebar = TRUE,
+  #collapse_sidebar = TRUE,
   
   # PAGE NAME
   title = "CS Analyzer", 
@@ -27,6 +27,7 @@ ui <- dashboardPagePlus(
       menuItem("Descriptive", tabName = "descriptive", icon = icon("skull")),
       menuItem("Prediction", tabName = "prediction", icon = icon("skull")),
       br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
       menuItem("About", tabName = "about", icon = icon("address-card"))
     )
   ),
