@@ -112,3 +112,38 @@ csgo_api_profile <- function(key, user_id)
 } 
 
 
+csgo_api_profile_by_name <- function(key, username)
+{
+  # Profile by user name
+  call_cs_profile <- sprintf(
+    'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?&key=%s&vanityurl=%s',
+    key,
+    username
+  )
+  
+  api_query_profile <- GET(call_cs_profile)
+  
+  api_content_profile <- content(api_query_profile, 'text')
+  
+  json_content_profile <- fromJSON(api_content_profile, flatten = TRUE)
+  
+  db_profile <- as.data.frame(json_content_profile$response)
+  
+  # RETURN
+  if(db_profile$success != 1) 
+  {
+    return("User not found")
+  } 
+  
+  if(db_profile$success == 1) 
+  {
+    return(db_profile$steamid)
+  }
+  
+}
+
+
+
+
+
+

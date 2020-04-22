@@ -2,6 +2,8 @@
 require(shiny)
 require(shinydashboard)
 require(shinydashboardPlus)
+require(dplyr)
+require(shinyhelper)
 
 source('functions_app/csgo_api.R')
 source('functions_app/set_key.R')
@@ -66,23 +68,23 @@ ui <- dashboardPagePlus(
                 inputId = 'user_id', 
                 label = 'Please enter your Steam ID',
                 value = '',
-                placeholder = '76561198263364899') %>%
+                placeholder = 'generalcapivara OR 76561198263364899') %>%
                 helper(
                   icon = "question",
                   colour = "#ce8404",
                   type = "inline",
-                  title = "Inline Help",
-                  content = c("This helpfile is defined entirely in the UI!",
-                              "This is on a new line.",
-                              "This is some <b>HTML</b>.",
-                              "Note this modal has a different button label, fades in and is harder to close."),
+                  title = "Where can I find my Steam ID?",
+                  content = c(
+                    "Steam ID is the <b>NUMBER OR NAME</b> at the end of your steam profile URL.",
+                    "",
+                    "<b>Example</b>:",
+                    "Steam profile URL: <b>https://steamcommunity.com/profiles/76561198263364899/</b>,
+                    in this case the Steam ID is <b>76561198263364899</b>.",
+                    "",
+                    "Steam profile URL: <b>https://steamcommunity.com/id/generalcapivara/</b>,
+                    in this case the Steam ID is <b>generalcapivara</b>."
+                  ),
                   buttonLabel = 'Got it!')
-              # helper(
-                #   icon = "question",
-                #   colour = "green",
-                #   type = "markdown",
-                #   content = "Columns"),
-             
             ),
             
             actionButton(

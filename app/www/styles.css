@@ -94,6 +94,7 @@ hr {
   border-top: 2px solid #232a30;
 }
 
+/* btn */
 .btn_go, .btn_go:focus, .btn_go:active {
     background-color: #232a30 !important;
     color: #ce8404 !important;
@@ -117,6 +118,18 @@ hr {
     width: 100px;
     height: 100px;
     display: inline-block;
+}
+
+.btn-default, .btn-default:focus, .btn-default:active {
+  background-color: #232a30 !important;
+  color: #ce8404 !important;
+  border-color: #232a30 !important;
+}
+
+.btn-default:hover {
+  background-color: #232a30bf !important;
+  color: #ce8404 !important;
+  border-color: #232a30 !important;
 }
 
 .box {

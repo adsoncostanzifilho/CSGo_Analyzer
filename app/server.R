@@ -6,7 +6,19 @@ server <- function(input, output, session)
   # USER BOX
   user_box <- eventReactive(input$go, {
     
-    db_stats <- csgo_api_profile(key = api_key, user_id = input$user_id)
+    # USER ID
+    if(!is.na(as.numeric(input$user_id)))
+    {
+      db_stats <- csgo_api_profile(key = api_key, user_id = input$user_id)
+    }
+    
+    # USER NAME
+    if(is.na(as.numeric(input$user_id)))
+    {
+      steam_id <- csgo_api_profile_by_name(key = api_key, username = input$user_id)
+      db_stats <- csgo_api_profile(key = api_key, user_id = steam_id)
+    }
+    
     
     if(nrow(db_stats) == 0)
     {
