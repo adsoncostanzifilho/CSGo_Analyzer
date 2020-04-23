@@ -4,20 +4,29 @@ source('app/functions_app/set_key.R')
 source('functions/csgo_api.R')
 source("packages.r")
 
-#user_name vira do shiny app quando o usuario digitar
+#user_key vira do shiny app quando o usuario digitar
 
 
-create_df_stats_user <- function(api_key,user_name){
+create_df_stats_user <- function(api_key,user_key){
   
   suporte_armas <- read_rds("data/armas.rds") %>% mutate(DESC= toupper(DESC))
   suporte_mapas <- read_rds("data/mapas.rds") %>% mutate(DESC= toupper(DESC))
   suporte_stats <- read_rds("data/stats.rds") %>% mutate(DESC= toupper(DESC))
   
-  user_id <- as.character(csgo_api_profile_by_name(api_key,user_name))
+  
+    if(is.na(as.numeric(user_key))){
+      
+      user_id <- as.character(csgo_api_profile_by_name(api_key,user_key)) 
+      
+    }else{
+      user_id <- as.character(user_key)
+    }
+  
+  
   
   stats <- csgo_api_stats(api_key,user_id)
   
-  #profile_name <- csgo_api_profile(api_key,user_id) #$personaname
+  profile_name <- csgo_api_profile(api_key,user_id)$personaname
   
   stats2 <- stats
   
@@ -52,9 +61,9 @@ create_df_stats_user <- function(api_key,user_name){
     stats2$type[pos] <- suporte_stats$CATEGORIA[i]
   }
   
-  stats2 <- stats2 %>% filter(!is.na(label)) %>% mutate(player_name = user_name)
+  stats2 <- stats2 %>% filter(!is.na(label)) %>% mutate(player_name = profile_name)
   
-    lista_db <- list(db_raw=stats,db_clean=stats2,player=user_name)
+    lista_db <- list(db_raw=stats,db_clean=stats2,player=profile_name)
   
 }
 
