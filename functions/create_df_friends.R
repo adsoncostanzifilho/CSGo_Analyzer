@@ -5,9 +5,16 @@ source('functions/csgo_api.R')
 source('functions/create_df_userid.R')
 source("packages.r")
 
-create_df_stats_friends <- function(api_key,user_name){
+create_df_stats_friends <- function(api_key,user_key){
 
-user_id <- as.character(csgo_api_profile_by_name(api_key,user_name)) ##user_name vira do shiny app quando o usuario digitar
+  if(is.na(as.numeric(user_key))){
+    
+    user_id <- as.character(as.vector(csgo_api_profile_by_name(api_key,user_key))) 
+    
+  }else{
+    user_id <- as.character(user_key)
+  }
+  
 
 friend_list <- csgo_api_friend(api_key,user_id)
 
@@ -18,15 +25,18 @@ friend_list <- csgo_api_friend(api_key,user_id)
     
     temp <- csgo_api_profile(api_key,friend_list$steamid[i])
     
-    if(("commentpermission" %in% colnames(temp))){
+    if(("communityvisibilitystate" %in% colnames(temp))){
         
-        friend_list$public[i] <- ifelse(temp$commentpermission == 1,"Public","Not Public")
+        friend_list$public[i] <- ifelse(as.numeric(temp$communityvisibilitystate)  > 1,"Public","Not Public")
+        friend_list$name[i] <- temp$personaname
     }
     else{
       
       friend_list$public[i] <- "Not Public"
+      friend_list$name[i] <- temp$personaname
       
     }
+    print(paste("selecionando amigos publicos",i,sep = " - "))
   }
     
 
@@ -44,6 +54,8 @@ friend_data_list <- list()
       user = as.character(friend_list$steamid[i])
       
       friend_data_list[[i]] <- create_df_stats_user(api_key,user)
+      
+      print(paste("selecionando dados de amigos",i,sep = " - "))
       
     }
     
