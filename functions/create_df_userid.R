@@ -6,7 +6,6 @@ source("packages.r")
 
 #user_key vira do shiny app quando o usuario digitar
 
-
 create_df_stats_user <- function(api_key,user_key){
   
   suporte_armas <- read_rds("data/armas.rds") %>% mutate(DESC= toupper(DESC))
