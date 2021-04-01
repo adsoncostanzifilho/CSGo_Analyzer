@@ -28,7 +28,7 @@ install_load <- function (package1, ...)  {
 packages <- c("devtools","dplyr","purrr","stringr","tidyverse",
               "stringdist","data.table","dbplyr","lubridate",
               "visdat","janitor","furrr","profvis","htmlwidgets","parallel","fastmatch","plotly","ggplot2",
-              "formattable","readxl") #"rjson","RJSONIO"
+              "formattable","readxl", "CSGo") #"rjson","RJSONIO"
 
 install_load(packages)
 
