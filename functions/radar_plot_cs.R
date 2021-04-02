@@ -173,7 +173,7 @@ radar_shiny <- function(user_id = '76561198263364899', api_key = 'B8A56746036078
                    total_mvps, total_contribution_score, total_kills), ~(. / total_time_played)) %>% #pondera pelo tempo de jopgo em horas
     select(-total_time_played) %>% 
     tibble::column_to_rownames(var = "player_name") %>% 
-    mutate_all(scale)
+    mutate_all(function(x){(x-min(x))/(max(x)-min(x))}) #scale para range 0 - 1
   
   rownames(df_final) <- nomes
   
