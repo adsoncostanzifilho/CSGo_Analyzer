@@ -1,4 +1,3 @@
-
 get_stats_friends2 <- function(api_key, user_id) #usar a get_stats_friends quando estiver atualizada no CRAN - add possibly
 {
   
@@ -182,20 +181,20 @@ radar_shiny <- function(user_id = '76561198263364899', api_key = 'B8A56746036078
     type = 'scatterpolar',
     fill = 'toself'
   ) 
+  
+  for(i in 1:nrow(df_final)){
     
-    for(i in 1:nrow(df_final)){
-      
-      #transforma cada linha do df num vetor
-      temp <- c(df_final[i,]) %>% unlist() %>% as.vector()
-      
-      fig <- fig %>% 
-        add_trace(
-          r = temp,
-          theta = colnames(df_final),
-          name = rownames(df_final)[i]
-        ) 
-      
-    }
+    #transforma cada linha do df num vetor
+    temp <- c(df_final[i,]) %>% unlist() %>% as.vector()
+    
+    fig <- fig %>% 
+      add_trace(
+        r = temp,
+        theta = colnames(df_final),
+        name = rownames(df_final)[i]
+      ) 
+    
+  }
   
   fig
   
