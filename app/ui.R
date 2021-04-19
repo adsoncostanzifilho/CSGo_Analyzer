@@ -35,7 +35,7 @@ ui <- shinydashboardPlus::dashboardPage(
       menuItem("Home", tabName = "home", icon = icon("award")),
       menuItem("My Data", tabName = "me", icon = icon("skull")),
       menuItem("My Friends Data", tabName = "friends", icon = icon("skull")),
-      menuItem("About", tabName = "about", icon = icon("address-card"))
+      menuItem("About", tabName = "about", icon = icon("book-dead"))
     )
   ),
   
