@@ -4,12 +4,20 @@ require(shinydashboard)
 require(shinydashboardPlus)
 require(dplyr)
 require(shinyhelper)
+require(CSGo)
 
-source('functions_app/csgo_api.R')
-source('functions_app/set_key.R')
 
-ui <- dashboardPagePlus(
-  #collapse_sidebar = TRUE,
+source('credentials/api_key.R')
+
+
+#- Loading UIs
+source("tabs/1_home/home_ui.R")
+source("tabs/2_me/me_ui.R")
+source("tabs/3_friends/friends_ui.R")
+source("tabs/4_about/about_ui.R")
+
+
+ui <- shinydashboardPlus::dashboardPage(
   
   # PAGE NAME
   title = "CS Analyzer", 
@@ -20,115 +28,35 @@ ui <- dashboardPagePlus(
     title = tags$img(src = 'img/cs_logo2.PNG', class = 'main_logo')
   ),
   
+  
   # SIDE BAR
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("award")),
-      menuItem("Descriptive", tabName = "descriptive", icon = icon("skull")),
-      menuItem("Prediction", tabName = "prediction", icon = icon("skull")),
-      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
-      br(),br(),br(),br(),br(),br(),br(),br(),br(),br(),
+      menuItem("My Data", tabName = "me", icon = icon("skull")),
+      menuItem("My Friends Data", tabName = "friends", icon = icon("skull")),
       menuItem("About", tabName = "about", icon = icon("address-card"))
     )
   ),
   
   # BODY
   dashboardBody(
+
+    tags$head(
+      # PAGE LOGO
+      HTML('<link rel="icon", href="img/caveira_icon.PNG",type="image/png" />'),
+      
+      # THEME 
+      tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+    ),
     
-    ## PAGE LOGO
-    list(
-      tags$head(
-        HTML('<link rel="icon", href="img/caveira_icon.PNG",type="image/png" />'))),
-    
-    # THEME 
-    tags$head(tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")), 
     
     # TABS
     tabItems(
-      
-      #- HOME TAB
-      tabItem(
-        tabName = "home",
-        fluidRow(
-          column(
-            width = 12,
-            class = 'home_welcome',
-            HTML('<h1>Welcome to the <b>CS Go Analyzer</b></h1>')
-          ),
-          
-          column(
-            width = 12,
-            hr()
-          ),
-          
-          column(
-            width = 12,
-            class = 'search_go',
-            box(
-              textInput(
-                inputId = 'user_id', 
-                label = 'Please enter your Steam ID',
-                value = '',
-                placeholder = 'generalcapivara OR 76561198263364899') %>%
-                helper(
-                  icon = "question",
-                  colour = "#ce8404",
-                  type = "inline",
-                  title = "Where can I find my Steam ID?",
-                  content = c(
-                    "Steam ID is the <b>NUMBER OR NAME</b> at the end of your steam profile URL.",
-                    "",
-                    "<b>Example</b>:",
-                    "Steam profile URL: <b>https://steamcommunity.com/profiles/76561198263364899/</b>,
-                    in this case the Steam ID is <b>76561198263364899</b>.",
-                    "",
-                    "Steam profile URL: <b>https://steamcommunity.com/id/generalcapivara/</b>,
-                    in this case the Steam ID is <b>generalcapivara</b>."
-                  ),
-                  buttonLabel = 'Got it!')
-            ),
-            
-            actionButton(
-              inputId = 'go',
-              label = 'GO',
-              class = 'btn_go',
-              icon = icon('skull')
-            )
-          ),
-          
-          uiOutput('user_info')
-          
-        )
-
-        
-      ),
-      
-      #- DESCRIPTIVE TAB
-      tabItem(
-        tabName = "descriptive",
-        
-        fluidRow(
-          h1('descriptive')
-        )
-      ),
-      
-      #- PREDICTION TAB
-      tabItem(
-        tabName = "prediction",
-        
-        fluidRow(
-          h1('prediction')
-        )
-      ),
-      
-      #- ABOUT TAB
-      tabItem(
-        tabName = "about",
-        
-        fluidRow(
-          h1('about')
-        )
-      )
+      home,
+      me,
+      friends,
+      about
     )
       
   )

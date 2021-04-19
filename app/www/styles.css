@@ -74,6 +74,18 @@ img {
     border-left-color: #ce8404;
 }
 
+/* PAGE */
+.content-wrapper {
+  overflow-y: initial !important;
+}
+
+/*Centralize boxes in search tab */
+
+.col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9 {
+    float: none;
+    margin: 0 auto;
+    text-align: center;
+}
 
 
 /*HOME*/
@@ -102,7 +114,7 @@ hr {
     width: 130px;
     height: 50px;
     font-size: 17px;
-    width: 100px;
+    width: 200px;
     height: 100px;
     display: inline-block;
     
@@ -115,7 +127,7 @@ hr {
     width: 130px;
     height: 50px;
     font-size: 17px;
-    width: 100px;
+    width: 200px;
     height: 100px;
     display: inline-block;
 }
@@ -144,7 +156,6 @@ hr {
 }
 
 .search_go {
-  left: 18%;
   padding-bottom: 25px;
 }
 
@@ -157,7 +168,6 @@ hr {
     width: 100%;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.37);
     color: #ce8404;
-    left: 18%;
     text-align: left;
 }
 
@@ -173,7 +183,6 @@ h3.widget-user-username {
 
 .user_box {
     width: 100%;
-    left: 4%;
 }
 
 .fa.fa-behance, .fa.fa-behance-square, .fa.fa-steam, .fa.fa-steam-square {
