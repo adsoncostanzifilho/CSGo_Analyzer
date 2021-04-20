@@ -1,5 +1,28 @@
 # HOME SERVER #
 
+# GET USER PROFILE DATA FRAME
+user_profile <- eventReactive(input$go, {
+  
+  # IF NULL ENTRY FROM USER
+  if(input$user_id == '')
+  {
+    return('NO_ENTRY')
+  }
+  
+  
+  # USER ID
+  db_profile <- CSGo::csgo_api_profile(
+    api_key = api_key, 
+    user_id = input$user_id, 
+    name = is.na(as.numeric(input$user_id))
+  )
+  
+  
+  # RETURN
+  return(db_profile)
+  
+})
+
 # USER BOX
 user_box <- eventReactive(input$go, {
   
@@ -18,16 +41,11 @@ user_box <- eventReactive(input$go, {
   
   
   # USER ID
-  db_stats <- CSGo::csgo_api_profile(
-    api_key = api_key, 
-    user_id = input$user_id, 
-    name = is.na(as.numeric(input$user_id))
-  )
-  
+  db_profile <- user_profile()
   
   
   # RETURN
-  if(nrow(db_stats) == 0)
+  if(nrow(db_profile) == 0)
   {
     user_return <- column(
       width = 12,
@@ -39,7 +57,7 @@ user_box <- eventReactive(input$go, {
     return(user_return)
   }
   
-  if(nrow(db_stats) != 0)
+  else if(nrow(db_profile) != 0)
   {
     user_return <- column(
       width = 12,
@@ -47,51 +65,28 @@ user_box <- eventReactive(input$go, {
       userBox(
         width = 8,
         title = userDescription(
-          title = db_stats$personaname,
+          title = db_profile$personaname,
           subtitle = "",
           type = 1,
-          image = db_stats$avatarfull
+          image = db_profile$avatarfull
         ),
         collapsible = FALSE,
         HTML(
           paste0(
             '<a href="',
-            db_stats$profileurl, 
+            db_profile$profileurl, 
             '" target="_blank" class="btn btn-steam"><i class="fa fa-steam left"></i></a>')
         ),
         footer = HTML(
           paste0(
             '<h4>Welcome <b>',
-            db_stats$personaname, 
+            db_profile$personaname, 
             '</b>, now you are able to use the entire page!</h4>')
         )
       )
     )
     
-    
-    # user_return <- column(
-    #   width = 12,
-    #   class = 'user_box',
-    #   widgetUserBox(
-    #     title = db_stats$personaname,
-    #     subtitle = "",
-    #     type = NULL,
-    #     width = 8,
-    #     src = db_stats$avatarfull,
-    #     collapsible = FALSE,
-    #     HTML(
-    #       paste0(
-    #         '<a href="',
-    #         db_stats$profileurl, 
-    #         '" target="_blank" class="btn btn-steam"><i class="fa fa-steam left"></i></a>')
-    #     ),
-    #     footer = HTML(paste0('<h4>Welcome <b>',
-    #                          db_stats$personaname, 
-    #                          '</b>, now you are able to use the entire page!</h4>'))
-    #     
-    #   )
-    # )
-    
+    return(user_return)
   }
   
   
@@ -99,7 +94,7 @@ user_box <- eventReactive(input$go, {
 
 
 # OUTPUTS
-output$user_info <- renderUI({user_box()})
+output$user_info <- renderUI(user_box())
 
 
 

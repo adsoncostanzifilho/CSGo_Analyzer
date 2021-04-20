@@ -7,11 +7,8 @@ home <- tabItem(
       width = 12,
       class = 'home_welcome',
       HTML('<h1>Welcome to the <b>CS Go Analyzer</b></h1>'),
-      h3("Here you will be able to collect your CSGO data and compare your skils with your friends!")
-    ),
-    
-    column(
-      width = 12,
+      h3("Here you will be able to collect your CSGO data and compare your skills with your friends!"),
+      br(),
       hr()
     ),
     
@@ -25,6 +22,7 @@ home <- tabItem(
           value = '',
           placeholder = 'generalcapivara OR 76561198263364899') %>%
           helper(
+            fade = TRUE,
             icon = "question",
             colour = "#ce8404",
             type = "inline",

@@ -33,8 +33,8 @@ ui <- shinydashboardPlus::dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("award")),
-      menuItem("My Data", tabName = "me", icon = icon("skull")),
-      menuItem("My Friends Data", tabName = "friends", icon = icon("skull")),
+      menuItem("Individual Data", tabName = "me", icon = icon("skull")),
+      menuItem("Friends Data", tabName = "friends", icon = icon("skull")),
       menuItem("About", tabName = "about", icon = icon("book-dead"))
     )
   ),
@@ -50,6 +50,12 @@ ui <- shinydashboardPlus::dashboardPage(
       tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
     ),
     
+    #- Remove error messages
+    tags$style(
+      type="text/css",
+      ".shiny-output-error { visibility: hidden; }",
+      ".shiny-output-error:before { visibility: hidden; }"
+    ),
     
     # TABS
     tabItems(
@@ -57,6 +63,16 @@ ui <- shinydashboardPlus::dashboardPage(
       me,
       friends,
       about
+    ),
+    
+    # FOOTER
+    tags$div(
+      class = 'my_footer',
+      tags$b('Powered by '), 
+      tags$a(
+        class = 'package_link',
+        href="https://adsoncostanzifilho.github.io/CSGo/", 
+        tags$b('CSGo package'))
     )
       
   )

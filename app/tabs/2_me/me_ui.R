@@ -3,6 +3,8 @@ me <- tabItem(
   tabName = "me",
   
   fluidRow(
-    h1('My Data')
+    uiOutput('user_welcome'),
+    
+    uiOutput('main_kpis')
   )
 )

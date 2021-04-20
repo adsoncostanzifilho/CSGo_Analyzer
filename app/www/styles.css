@@ -27,6 +27,39 @@ img {
     border-bottom: 0 solid transparent;
 }
 
+
+/* FOOTER */
+.my_footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #232a30;
+  color: white;
+  text-align: right;
+  padding-right: 4%;
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
+}
+
+.package_link {
+  color: #ce8404;
+}
+
+.package_link:hover {
+  color: #e2a336 !important;
+}
+
+
+/* COLUMNS SIDE BY SIDE */
+.side_side{
+  float:left !important;
+}
+
+.column_side {
+  float: inherit !important;
+}
+
 .skin-blue .main-header .navbar {
     background-color: #232a30;
 }
@@ -206,3 +239,38 @@ h3.widget-user-username {
     text-align: center;
     font-size: 18px;
 }
+
+/*KPIS BOXES*/
+.bg-purple {
+    background-color: #232a30b8!important;
+    border-radius: 15px;
+    width: 280px;
+    height: 100px;
+}
+
+.small-box p {
+    font-size: 25px;
+    color: #232a30;
+    font-weight: bold;
+}
+
+.small-box h3 {
+    font-size: 40px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    padding: 0;
+    color: #232a30;
+}
+
+.small-box .icon-large {
+    position: absolute;
+    top: auto;
+    bottom: 15px;
+    right: 10px;
+    font-size: 50px;
+    color: rgba(0, 0, 0, 0.15);
+}
+
+
+
