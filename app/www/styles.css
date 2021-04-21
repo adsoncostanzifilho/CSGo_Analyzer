@@ -30,7 +30,7 @@ img {
 
 /* FOOTER */
 .my_footer {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -39,7 +39,8 @@ img {
   text-align: right;
   padding-right: 4%;
   padding-top: 0.5%;
-  padding-bottom: 0.5%;
+  padding-bottom: 0px;
+  margin-bottom: -25px;
 }
 
 .package_link {
@@ -272,5 +273,29 @@ h3.widget-user-username {
     color: rgba(0, 0, 0, 0.15);
 }
 
+/*image and text align*/
+.one {
+  display: inline-flex;
+  align-items: center;
+}
+/*image individual view*/
+.user_img {
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 2px solid #232a30;
+}
+/* select inputs */
+div.box-body .shiny-input-container {
+    margin: 0 auto;
+}
 
-
+.map_img
+{
+  height: 250px;
+  border-radius: 2%;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  margin: 10px;
+  margin-bottom: 30px;
+  
+}

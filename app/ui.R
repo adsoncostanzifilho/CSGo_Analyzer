@@ -5,10 +5,14 @@ require(shinydashboardPlus)
 require(dplyr)
 require(shinyhelper)
 require(CSGo)
+require(stringr)
+require(tidyr)
 
-
+# SET CREDENTIALS
 source('credentials/api_key.R')
 
+# AUXILIAR DATA
+map_pictures <<- readRDS('data/map_pictures.RDS')
 
 #- Loading UIs
 source("tabs/1_home/home_ui.R")
@@ -17,6 +21,7 @@ source("tabs/3_friends/friends_ui.R")
 source("tabs/4_about/about_ui.R")
 
 
+# MAIN UI START
 ui <- shinydashboardPlus::dashboardPage(
   
   # PAGE NAME
@@ -38,6 +43,7 @@ ui <- shinydashboardPlus::dashboardPage(
       menuItem("About", tabName = "about", icon = icon("book-dead"))
     )
   ),
+  
   
   # BODY
   dashboardBody(
