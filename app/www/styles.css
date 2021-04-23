@@ -290,12 +290,31 @@ div.box-body .shiny-input-container {
     margin: 0 auto;
 }
 
-.map_img
-{
-  height: 250px;
+.map_img {
+  height: 260px;
   border-radius: 2%;
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
   margin: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 18px;
   
 }
+
+.box_map_desc
+{
+  height: 220px !important;
+}
+
+.highcharts-root {
+  font-family: 'Quantico','Changa','Noto Sans',sans-serif !important;
+  color: #232a30 !important;
+  font-size: 15px !important;
+}
+
+
+.h4_left{
+  text-align: left !important;
+}
+/*hover highcharter*/
+/*highcharts-point highcharts-color-0 highcharts-point-hover*/
+
+

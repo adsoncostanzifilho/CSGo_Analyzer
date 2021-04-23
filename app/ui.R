@@ -7,12 +7,15 @@ require(shinyhelper)
 require(CSGo)
 require(stringr)
 require(tidyr)
+require(highcharter)
 
 # SET CREDENTIALS
 source('credentials/api_key.R')
 
 # AUXILIAR DATA
 map_pictures <<- readRDS('data/map_pictures.RDS')
+weapon_pictures <<- readRDS('data/weapon_pictures.RDS')
+
 
 #- Loading UIs
 source("tabs/1_home/home_ui.R")
