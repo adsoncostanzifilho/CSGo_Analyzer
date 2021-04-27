@@ -2,19 +2,20 @@
 require(shiny)
 require(shinydashboard)
 require(shinydashboardPlus)
-require(dplyr)
 require(shinyhelper)
+require(shinycustomloader)
 require(CSGo)
 require(stringr)
 require(tidyr)
+require(dplyr)
 require(highcharter)
+require(plotly)
+
+# set plan to collect the data app in parallel
+future::plan(future::multisession, workers = 8)
 
 # SET CREDENTIALS
 source('credentials/api_key.R')
-
-# AUXILIAR DATA
-map_pictures <<- readRDS('data/map_pictures.RDS')
-weapon_pictures <<- readRDS('data/weapon_pictures.RDS')
 
 
 #- Loading UIs
@@ -42,8 +43,8 @@ ui <- shinydashboardPlus::dashboardPage(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("award")),
       menuItem("Individual Data", tabName = "me", icon = icon("skull")),
-      menuItem("Friends Data", tabName = "friends", icon = icon("skull")),
-      menuItem("About", tabName = "about", icon = icon("book-dead"))
+      menuItem("Friends Data", tabName = "friends", icon = icon("book-dead")),
+      menuItem("About", tabName = "about", icon = icon("bomb"))
     )
   ),
   

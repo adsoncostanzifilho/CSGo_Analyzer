@@ -314,7 +314,47 @@ div.box-body .shiny-input-container {
 .h4_left{
   text-align: left !important;
 }
+
+.heavy {
+  font-weight: bold !important;
+  color: #5d79ae !important;
+}
+
+.pistols {
+  font-weight: bold !important;
+  color: #636465 !important;
+}
+
+.rifles {
+  font-weight: bold !important;
+  color: #ccba7c !important;
+}
+
+.smgs {
+  font-weight: bold !important;
+  color: #77715d !important;
+}
+
+
+/* LOADER */
+.loader-img{
+  width: 40% !important;
+  margin: 0 auto !important;
+  height: 100%!important;
+  padding-top: 45%;
+}
 /*hover highcharter*/
 /*highcharts-point highcharts-color-0 highcharts-point-hover*/
 
 
+/* GRAPHIC TOOLTIP */
+.radar_img{
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 2px solid #232a30;
+}
+
+.hr_tooltip{
+  margin-bottom: 10px!important;
+}

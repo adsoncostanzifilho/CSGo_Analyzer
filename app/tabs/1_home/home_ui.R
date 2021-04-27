@@ -20,7 +20,7 @@ home <- tabItem(
           inputId = 'user_id', 
           label = 'Please enter your Steam ID',
           value = '',
-          placeholder = 'generalcapivara OR 76561198263364899') %>%
+          placeholder = 'Try: kevinarndt OR 76561198263364899') %>%
           helper(
             fade = TRUE,
             icon = "question",
@@ -34,8 +34,8 @@ home <- tabItem(
               "Steam profile URL: <b>https://steamcommunity.com/profiles/76561198263364899/</b>,
                     in this case the Steam ID is <b>76561198263364899</b>.",
               "",
-              "Steam profile URL: <b>https://steamcommunity.com/id/generalcapivara/</b>,
-                    in this case the Steam ID is <b>generalcapivara</b>."
+              "Steam profile URL: <b>https://steamcommunity.com/id/kevinarndt/</b>,
+                    in this case the Steam ID is <b>kevinarndt</b>."
             ),
             buttonLabel = 'Got it!')
       )

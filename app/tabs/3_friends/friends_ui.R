@@ -3,6 +3,18 @@ friends <- tabItem(
   tabName = "friends",
   
   fluidRow(
-    h1('My Friends Data')
-  )
+    uiOutput('friends_welcome'),
+  
+    column(
+      width = 12,
+      class = 'home_welcome',
+      
+      uiOutput('compare_friends') %>%
+        withLoader(type="image", loader="csgo_load.gif"), 
+      
+      uiOutput('dream_team')
+    )
+    
+    
+    )
 )

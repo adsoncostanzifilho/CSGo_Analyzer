@@ -101,7 +101,7 @@ radar_shiny <- function(user_id = '76561198263364899', api_key = 'B8A56746036078
   #select(steamid, personaname, profileurl)
   
   ### get all players stats
-  stats_friends <- get_stats_friends2(api_key, user_id) #trocar nome funcao pela original corrigida - add possibly
+  stats_friends <- get_stats_friends(api_key, user_id) #trocar nome funcao pela original corrigida - add possibly
   
   user_stats <- get_stats_user(api_key, user_id)
   
@@ -114,7 +114,6 @@ radar_shiny <- function(user_id = '76561198263364899', api_key = 'B8A56746036078
     filter(
       str_detect(category, 'competitive - bomb'),
       str_detect(name, 'total_wins')
-      
     ) %>% 
     group_by(player_name) %>% 
     summarize(total_rounds_win = sum(value, na.rm = T)) %>% 

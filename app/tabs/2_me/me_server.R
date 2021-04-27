@@ -1,3 +1,5 @@
+#-- ME SERVER --#
+
 # USER WELCOME
 user_welcome <- eventReactive(input$go, {
   
@@ -21,6 +23,7 @@ user_welcome <- eventReactive(input$go, {
 # USER STATS
 user_stats <- eventReactive(input$go, {
   
+  # user_stats2 <- get_stats_user(api_key = api_key, user_id = 'kevinarndt')
   # user_stats <- get_stats_user(api_key = api_key, user_id = '76561198263364899')
   user_stats <- get_stats_user(api_key = api_key, user_id = input$user_id)
 })
@@ -111,7 +114,7 @@ main_kpis <- eventReactive(input$go, {
 weapon_stats <- eventReactive(input$go, {
   
   weapon_stats <- user_stats() %>%
-    filter(type == ' weapon info') %>%
+    filter(type == 'weapon info') %>%
     mutate(
       stat_type = case_when(
         str_detect(name, "shots") ~ "shots",
@@ -126,15 +129,7 @@ weapon_stats <- eventReactive(input$go, {
     ) %>%
     mutate_if(is.numeric, replace_na, 0) %>%
     left_join(weapon_pictures, by = c('name_match'='weapon_name')) %>%
-    filter(category != 'utilitario', category != 'suporte') %>%
-    mutate(
-      category = case_when(
-        category == 'pistola' ~ 'Pistols',
-        category == 'pesada' ~ 'Heavy',
-        category == 'submetralhadora' ~ 'SMGs',
-        category == 'rifle' ~ 'Rifles'
-      )
-    )
+    filter(category != 'Grenades', category != 'Support') 
   
   return(weapon_stats)
   
@@ -159,7 +154,7 @@ weapon_plot <- reactive({
       formatter = JS(
         'function () { 
           return "Weapon: " + "<b>" + this.point.name + "</b>"  
-          + " <hr>" 
+          + " <hr class=hr_tooltip >" 
           + "<div><img src=" + this.point.weapon_photo + " class=weapon_img ></img></div>"
           + " <br/> Hits: " + "<b>" + this.point.hits + "</b>" 
           + " <br/> Shots: " + "<b>" + this.point.x + "</b>" 
@@ -194,19 +189,68 @@ weapon_description <- reactive({
     ) 
   
   shots_hit <- weapon_stats %>%
-    top_n(n = 2, wt = shots_hit) 
+    group_by(category) %>%
+    top_n(n = 1, wt = shots_hit) %>%
+    ungroup()
   
-  shots_kill <- weapon_stats %>%
-    top_n(n = 2, wt = shots_kill) 
   
   weapon_description <- shinydashboard::box(
-    width = 10,
-    h3("Choose the Best Weapon"),
+    width = 12,
+    h3("The Best Weapons"),
     br(),
-    h4(tags$b(shots_hit$shots_hit[1], "%"), "of your shots using the", tags$b(shots_hit$name_match[1]), "will hit.", class = "h4_left"),
-    h4(tags$b(shots_hit$shots_hit[2], "%"), "of your shots using the", tags$b(shots_hit$name_match[2]), "will hit.", class = "h4_left"),
-    h4(tags$b(shots_kill$shots_hit[1], "%"), "of your shots using the", tags$b(shots_kill$name_match[1]), "will kill.", class = "h4_left"),
-    h4(tags$b(shots_kill$shots_hit[2], "%"), "of your shots using the", tags$b(shots_kill$name_match[2]), "will kill.", class = "h4_left")
+    
+    tags$h4(
+      tags$span("Heavy:", class = "heavy"),
+      tags$span(
+        tags$b(shots_hit %>% filter(category == 'Heavy') %>% .$shots_hit, "%"),
+        "of your shots using the",
+        tags$b(shots_hit %>% filter(category == 'Heavy') %>% .$name_match),
+        "will hit (",
+        tags$b(shots_hit %>% filter(category == 'Heavy') %>% .$shots_kill, "%"),
+        "will kill )."
+      ),
+      class = "h4_left"
+    ),
+    
+    tags$h4(
+      tags$span("Pistol:", class = "pistols"),
+      tags$span(
+        tags$b(shots_hit %>% filter(category == 'Pistols') %>% .$shots_hit, "%"),
+        "of your shots using the",
+        tags$b(shots_hit %>% filter(category == 'Pistols') %>% .$name_match),
+        "will hit (",
+        tags$b(shots_hit %>% filter(category == 'Pistols') %>% .$shots_kill, "%"),
+        "will kill )."
+      ),
+      class = "h4_left"
+    ),
+    
+    tags$h4(
+      tags$span("Rifle:", class = "rifles"),
+      tags$span(
+        tags$b(shots_hit %>% filter(category == 'Rifles') %>% .$shots_hit, "%"),
+        "of your shots using the",
+        tags$b(shots_hit %>% filter(category == 'Rifles') %>% .$name_match),
+        "will hit (",
+        tags$b(shots_hit %>% filter(category == 'Rifles') %>% .$shots_kill, "%"),
+        "will kill )."
+      ),
+      class = "h4_left"
+    ),
+    
+    tags$h4(
+      tags$span("SMG:", class = "smgs"),
+      tags$span(
+        tags$b(shots_hit %>% filter(category == 'SMGs') %>% .$shots_hit, "%"),
+        "of your shots using the",
+        tags$b(shots_hit %>% filter(category == 'SMGs') %>% .$name_match),
+        "will hit (",
+        tags$b(shots_hit %>% filter(category == 'SMGs') %>% .$shots_kill, "%"),
+        "will kill )."
+      ),
+      class = "h4_left"
+    )
+    
   )
   
   
@@ -231,13 +275,9 @@ weapon <- eventReactive(input$go, {
 
 # MAP ANALYSIS
 map_stats <- eventReactive(input$go, {
-  aux <- user_stats() %>%
-    filter(type == 'maps', name_match == 'dust2') 
   
   map_stats <- user_stats() %>%
     filter(type == 'maps') %>%
-    anti_join(aux, by = c("value"="value")) %>%
-    bind_rows(aux) %>%
     mutate(
       stat_type = case_when(
         str_detect(name, "win") ~ "win",
@@ -308,7 +348,7 @@ map <- eventReactive(input$go, {
       
     )
   )
-  test <<- input$map_selector
+  
   return(map_ui)
 })
 
