@@ -10,9 +10,10 @@ me <- tabItem(
     column(
       width = 12,
       class = 'home_welcome',
-      uiOutput('weapon_ui'),
+      uiOutput('weapon_ui')  %>%
+        withLoader(type = "html", loader = "loader3") ,
       
-      uiOutput('map_ui')
+      uiOutput('map_ui')  
     )
     
   )

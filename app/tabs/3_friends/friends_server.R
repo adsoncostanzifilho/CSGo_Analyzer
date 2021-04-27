@@ -43,6 +43,7 @@ friends_stats <- eventReactive(input$go, {
 
 # COMPARE FRIENDS
 friends_radar <- reactive({
+ 
   friends_stats <- friends_stats()
   
   
@@ -185,7 +186,8 @@ comp_friends <-eventReactive(input$go, {
     h1("Compare Friends"),
     shinydashboard::box(
       width = 12,
-      highchartOutput('friends_radar') 
+      highchartOutput('friends_radar')  %>%
+        withLoader(type = "html", loader = "loader3") 
     )
   )
   
