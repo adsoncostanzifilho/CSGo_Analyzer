@@ -44,10 +44,14 @@ img {
 }
 
 .package_link {
-  color: #ce8404;
+  color: #ce8404 !important;
 }
 
 .package_link:hover {
+  color: #e2a336 !important;
+}
+
+.package_link:active{
   color: #e2a336 !important;
 }
 
@@ -375,3 +379,38 @@ div.box-body .shiny-input-container {
 .hr_tooltip{
   margin-bottom: 10px!important;
 }
+
+path.highcharts-legend-nav-active{
+  fill: #ce8404 !important;
+}
+
+/* ABOUT */
+.about_left{
+  text-align: left;
+}
+
+.hr_about{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.note{
+  background-color: #ce840429;
+  background-position: 9px 0px;
+  background-repeat: no-repeat;
+  border-left: solid 4px #ce8404;
+  line-height: 18px;
+  overflow: hidden;
+  padding: 15px 60px;
+  margin: 15px;
+}
+
+.sticker_about{
+  height: 180px;
+  float: right; 
+  margin: 0px 0px 25px 25px;
+}
+
+
+
+

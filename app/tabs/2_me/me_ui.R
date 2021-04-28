@@ -3,10 +3,10 @@ me <- tabItem(
   tabName = "me",
   
   fluidRow(
-    uiOutput('user_welcome'),
-    
-    uiOutput('main_kpis') %>%
+    uiOutput('user_welcome') %>%
       withSpinner(type = 7, color = "#ce8404"),
+    
+    uiOutput('main_kpis'),
     
     column(
       width = 12,

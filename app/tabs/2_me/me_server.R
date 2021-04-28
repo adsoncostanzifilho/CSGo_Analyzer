@@ -25,6 +25,7 @@ user_stats <- eventReactive(input$go, {
   
   # user_stats <- get_stats_user(api_key = api_key, user_id = 'CESPIRA')
   # user_stats <- get_stats_user(api_key = api_key, user_id = '76561198263364899')
+  # user_stats <- get_stats_user(api_key = api_key, user_id = '76561199150336868')
   user_stats <- get_stats_user(api_key = api_key, user_id = input$user_id)
 })
 

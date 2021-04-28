@@ -71,10 +71,10 @@ ui <- shinydashboardPlus::dashboardPage(
     #- Remove error messages
     tags$style(
       type="text/css",
-      ".shiny-output-error { visibility: hidden; }",
+      ".shiny-output-error { visibility: hidden; color: #ff000000 !important; }",
       ".shiny-output-error:before { visibility: hidden; }"
     ),
-    
+
     # TABS
     tabItems(
       home,
