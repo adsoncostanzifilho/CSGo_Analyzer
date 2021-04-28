@@ -55,7 +55,8 @@ home <- tabItem(
     
     br(),
     
-    uiOutput('user_info')
+    uiOutput('user_info') %>%
+      withLoader(type = "html", loader = "loader3") 
     
   )
   

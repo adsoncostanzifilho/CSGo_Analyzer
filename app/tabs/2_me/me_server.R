@@ -23,7 +23,7 @@ user_welcome <- eventReactive(input$go, {
 # USER STATS
 user_stats <- eventReactive(input$go, {
   
-  # user_stats2 <- get_stats_user(api_key = api_key, user_id = 'kevinarndt')
+  # user_stats <- get_stats_user(api_key = api_key, user_id = 'CESPIRA')
   # user_stats <- get_stats_user(api_key = api_key, user_id = '76561198263364899')
   user_stats <- get_stats_user(api_key = api_key, user_id = input$user_id)
 })
@@ -257,16 +257,34 @@ weapon_description <- reactive({
 })
 
 weapon <- eventReactive(input$go, {
-  weapon_ui <- column(
-    width = 6,
-    class = "side_side",
-    h1("Weapon Analysis"),
-    shinydashboard::box(
+  user_stats <- user_stats()
+  
+  if(is.na(user_stats$name))
+  {
+    weapon_ui <- column(
       width = 12,
-      highchartOutput('weapon_plot'),
-      uiOutput("weapon_description")
+      class = "side_side",
+      shinydashboard::box(
+        width = 12,
+        h2("No Counter-Strike Global Offensive Data Available!"),
+        h3("Maybe you should play more CSGO...")
+      )
     )
-  )
+  }
+  else
+  {
+    weapon_ui <- column(
+      width = 6,
+      class = "side_side",
+      h1("Weapon Analysis"),
+      shinydashboard::box(
+        width = 12,
+        highchartOutput('weapon_plot'),
+        uiOutput("weapon_description")
+      )
+    )
+  }
+
   
   return(weapon_ui)
 })
@@ -325,29 +343,40 @@ map_description <- reactive({
 })
 
 map <- eventReactive(input$go, {
-  choices_ordered <- map_stats() %>% .[[1]]
   
-  map_ui <-  column(
-    width = 6,
-    class = "side_side",
-    h1("Map Analysis"),
-    shinydashboard::box(
-      width = 12,
-      selectInput(
-        width = '50%',
-        inputId = 'map_selector',
-        label = "Choose a map",
-        choices = choices_ordered,
-        selected = choices_ordered[1],
-        multiple = FALSE
-      ),
-      br(),
-      uiOutput('map_picture'),
-      br(),
-      uiOutput("map_description")
-      
+  user_stats <- user_stats()
+  
+  if(is.na(user_stats$name))
+  {
+    weapon_ui <- fluidRow()
+  }
+  else
+  {
+    choices_ordered <- map_stats() %>% .[[1]]
+    
+    map_ui <-  column(
+      width = 6,
+      class = "side_side",
+      h1("Map Analysis"),
+      shinydashboard::box(
+        width = 12,
+        selectInput(
+          width = '50%',
+          inputId = 'map_selector',
+          label = "Choose a map",
+          choices = choices_ordered,
+          selected = choices_ordered[1],
+          multiple = FALSE
+        ),
+        br(),
+        uiOutput('map_picture'),
+        br(),
+        uiOutput("map_description")
+        
+      )
     )
-  )
+  }
+  
   
   return(map_ui)
 })

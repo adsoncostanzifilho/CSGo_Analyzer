@@ -17,13 +17,14 @@ friends_welcome <- eventReactive(input$go, {
 })
 
 
+
 # FRIENDS STATS
 friends_stats <- eventReactive(input$go, {
   
   # Get data
   user_profile <- user_profile()
   user_stats <- user_stats()
-  friends <- get_stats_friends(api_key = api_key, user_id = input$user_id)
+  friends <- get_stats_friends(api_key = api_key, user_id = input$user_id, n_return = 30)
   
   # Bind Individual rows to the friends data
   friends_profile <- friends$friends %>%
@@ -34,7 +35,7 @@ friends_stats <- eventReactive(input$go, {
     bind_rows(user_stats) %>%
     left_join(friends_profile, by = c("player_name" = "personaname"))
   
-  
+  ttt <<- friends_stats
   
   return(friends_stats)
 })
@@ -179,15 +180,13 @@ friends_radar <- reactive({
 
 comp_friends <-eventReactive(input$go, {
   
-  friends_stats <- friends_stats()
   comp_friends <- column(
     width = 6,
     class = "side_side",
     h1("Compare Friends"),
     shinydashboard::box(
       width = 12,
-      highchartOutput('friends_radar')  %>%
-        withLoader(type = "html", loader = "loader3") 
+      highchartOutput('friends_radar')
     )
   )
   
@@ -195,8 +194,10 @@ comp_friends <-eventReactive(input$go, {
 })
 
 
+
 # DREAM TEAM
 dream_team <- eventReactive(input$go, {
+  
   dream_ream <- column(
     width = 6,
     class = "side_side",
@@ -212,7 +213,27 @@ dream_team <- eventReactive(input$go, {
 
 
 
-
+# WHOLE PAGE 
+whole_page_friends <- eventReactive(input$go, {
+  
+  friends_stats <- friends_stats()
+  
+  whole_pg <- fluidRow(
+    
+    uiOutput('friends_welcome'),
+    
+    column(
+      width = 12,
+      class = 'home_welcome',
+      
+      uiOutput('compare_friends'), 
+      
+      uiOutput('dream_team')
+    )
+  )
+  
+  return(whole_pg)
+})
 
 
 
@@ -228,4 +249,4 @@ output$compare_friends <- renderUI(comp_friends())
 
 output$dream_team <- renderUI(dream_team())
 
-
+output$whole_page_friends <- renderUI(whole_page_friends())
