@@ -32,14 +32,14 @@ img {
 .my_footer {
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: 25px;
   width: 100%;
   background-color: #232a30;
   color: white;
   text-align: right;
   padding-right: 4%;
   padding-top: 0.5%;
-  padding-bottom: 0px;
+  padding-bottom: 5px;
   margin-bottom: -25px;
 }
 
@@ -111,6 +111,16 @@ img {
 /* PAGE */
 .content-wrapper {
   overflow-y: initial !important;
+}
+
+.content {
+  min-height: 250px;
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 15px;
 }
 
 /*Centralize boxes in search tab */
@@ -347,8 +357,11 @@ div.box-body .shiny-input-container {
 .line {
   background-color: #ce8404 !important;
 }
-/*hover highcharter*/
-/*highcharts-point highcharts-color-0 highcharts-point-hover*/
+
+.shiny-spinner-placeholder {
+  margin-bottom: -100px;
+  margin-top: -180px;
+}
 
 
 /* GRAPHIC TOOLTIP */

@@ -4,6 +4,7 @@ require(shinydashboard)
 require(shinydashboardPlus)
 require(shinyhelper)
 require(shinycustomloader)
+require(shinycssloaders)
 require(CSGo)
 require(stringr)
 require(tidyr)
@@ -34,7 +35,7 @@ ui <- shinydashboardPlus::dashboardPage(
   
   # HEADER
   dashboardHeader(
-    title = tags$img(src = 'img/cs_logo2.PNG', class = 'main_logo')
+    title = tags$img(src = 'img/cs_logo.PNG', class = 'main_logo')
   ),
   
   
@@ -53,12 +54,19 @@ ui <- shinydashboardPlus::dashboardPage(
   dashboardBody(
 
     tags$head(
+      
+      # SCROLL FIX
+      tags$style(
+        HTML('.wrapper {heigth: auto !important; position: relative; overflow-x: hidden; overflow-y: hidden;')
+      ),
+      
       # PAGE LOGO
-      HTML('<link rel="icon", href="img/caveira_icon.PNG",type="image/png" />'),
+      HTML('<link rel="icon", href="img/caveira_icon.PNG", type="image/png" />'),
       
       # THEME 
       tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
     ),
+    
     
     #- Remove error messages
     tags$style(

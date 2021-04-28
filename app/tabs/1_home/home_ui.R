@@ -56,7 +56,7 @@ home <- tabItem(
     br(),
     
     uiOutput('user_info') %>%
-      withLoader(type = "html", loader = "loader3") 
+      withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
     
   )
   
