@@ -192,7 +192,9 @@ weapon_description <- reactive({
   shots_hit <- weapon_stats %>%
     group_by(category) %>%
     top_n(n = 1, wt = shots_hit) %>%
-    ungroup()
+    sample_n(1) %>%
+    ungroup() 
+  
   
   
   weapon_description <- shinydashboard::box(
@@ -295,6 +297,8 @@ weapon <- eventReactive(input$go, {
 # MAP ANALYSIS
 map_stats <- eventReactive(input$go, {
   
+  cols <- c(win = 0, won = 0, rounds = 0)
+  
   map_stats <- user_stats() %>%
     filter(type == 'maps') %>%
     mutate(
@@ -312,6 +316,7 @@ map_stats <- eventReactive(input$go, {
     ) %>%
     mutate_if(is.numeric, replace_na, 0) %>%
     mutate(
+      won = ifelse("won" %in% names(.), won, 0),
       win = win + won,
       perc = round(win/rounds*100,2)) %>%
     select(-won) %>%

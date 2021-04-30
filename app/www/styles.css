@@ -395,13 +395,13 @@ path.highcharts-legend-nav-active{
 }
 
 .note{
-  background-color: #ce840429;
+  background-color: #ce840408;
   background-position: 9px 0px;
   background-repeat: no-repeat;
   border-left: solid 4px #ce8404;
   line-height: 18px;
   overflow: hidden;
-  padding: 15px 60px;
+  padding: 8px 10px;
   margin: 15px;
 }
 

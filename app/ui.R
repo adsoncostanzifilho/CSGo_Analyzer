@@ -13,7 +13,7 @@ require(highcharter)
 require(plotly)
 
 # set plan to collect the data app in parallel
-future::plan(future::multisession, workers = parallel::detectCores())
+# future::plan(future::multisession, workers = parallel::detectCores())
 
 # SET CREDENTIALS
 source('credentials/api_key.R')

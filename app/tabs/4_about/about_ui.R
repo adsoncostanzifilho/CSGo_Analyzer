@@ -11,6 +11,7 @@ about <- tabItem(
       br(),
       hr(class = "hr_about")
     ),
+    
     column(
       width = 12,
       class = 'about_left',
@@ -42,9 +43,20 @@ about <- tabItem(
         "and, as always, your feedback and contributions are much appreciated!",
         icon("smile-beam")
       ),
+      
       br(),
+      
       h2(tags$b('How does this interface work?')),
       h3(
+        "The interface is divided into 3 main views, available on the left menu:", 
+        tags$b("Home,"), 
+        tags$b("Individual Data,"),
+        "and", 
+        tags$b("Friends Data.")
+      ),
+      
+      h3(tags$b("Home:")),
+      h4(
         'The first thing you must do to use the entire interface is to jump on the',
         tags$b('Home'), 
         'tab on the left menu and collect some data.
@@ -52,14 +64,16 @@ about <- tabItem(
         tags$b('Steam ID'),
         'and press',  tags$b('GO'),'!'
       ),
-
       h4(
-        "If you don't have any Steam ID to search, feel free to use Rodrigo's ID (",
+        "If you don't have a Steam ID to search, feel free to use Rodrigo's ID (",
          tags$b("76561198263364899"),")!",
         class = "note"
       ),
       
-      h3(
+      br(),
+      
+      h3(tags$b("Individual Data:")),
+      h4(
         "NICE! Now you can jump on the",
         tags$b("Individual Data"), 
         "tab to see some analysis on the player level.
@@ -67,11 +81,13 @@ about <- tabItem(
         regarding the best weapons and maps for the searched player!"
       ),
       
-      h3(
+      br(),
+      
+      h3(tags$b("Friends Data:")),
+      h4(
         "You can also go to the",
         tags$b("Friends Data"), 
         "tab to see how the player's friends are doing in the game!",
-        icon("flushed"),
         "Here you will be able to compare the searched player among their friends**, 
         the best players to play with, and also the friend most similar to the searched player."
       ),
@@ -82,7 +98,8 @@ about <- tabItem(
       ),
       
       br(),
-      
+      br(),
+      hr(),
       h5(
         "**  To not overload Steam's API, it will be only considered the", 
         tags$b("30 most recent friends"),

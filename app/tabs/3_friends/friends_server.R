@@ -186,7 +186,8 @@ comp_friends <-eventReactive(input$go, {
     h1("Compare Friends"),
     shinydashboard::box(
       width = 12,
-      highchartOutput('friends_radar')
+      highchartOutput('friends_radar')  %>%
+        withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
     )
   )
   
