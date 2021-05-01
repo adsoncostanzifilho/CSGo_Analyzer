@@ -10,10 +10,12 @@ require(stringr)
 require(tidyr)
 require(dplyr)
 require(highcharter)
-require(plotly)
+require(reactable)
+require(reactablefmtr)
+
 
 # set plan to collect the data app in parallel
-# future::plan(future::multisession, workers = parallel::detectCores())
+future::plan(future::multisession, workers = parallel::detectCores())
 
 # SET CREDENTIALS
 source('credentials/api_key.R')
@@ -43,7 +45,7 @@ ui <- shinydashboardPlus::dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Home", tabName = "home", icon = icon("award")),
-      menuItem("Individual Data", tabName = "me", icon = icon("skull")),
+      menuItem("Individual Data", tabName = "me", icon = icon("skull-crossbones")),
       menuItem("Friends Data", tabName = "friends", icon = icon("book-dead")),
       menuItem("About", tabName = "about", icon = icon("bomb"))
     )

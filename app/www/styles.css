@@ -15,7 +15,7 @@ body {
 
 
 /*Logo*/
-img {
+.main_logo {
   height: 50px;
   
 }
@@ -304,6 +304,11 @@ div.box-body .shiny-input-container {
     margin: 0 auto;
 }
 
+.weapon_img{
+  height: 50px;
+}
+
+
 .map_img {
   height: 260px;
   border-radius: 2%;
@@ -370,7 +375,7 @@ div.box-body .shiny-input-container {
 
 /* GRAPHIC TOOLTIP */
 .radar_img{
-  height: 80px;
+  height: 70px;
   margin: 0 auto;
   border-radius: 50%;
   border: 2px solid #232a30;
@@ -411,6 +416,12 @@ path.highcharts-legend-nav-active{
   margin: 0px 0px 25px 25px;
 }
 
-
-
+/* dream team table */
+.table_img {
+  vertical-align: middle;
+  height: 58px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 2px solid #232a30;
+}
 

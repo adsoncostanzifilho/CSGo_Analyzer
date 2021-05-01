@@ -23,10 +23,11 @@ user_welcome <- eventReactive(input$go, {
 # USER STATS
 user_stats <- eventReactive(input$go, {
   
-  # user_stats <- get_stats_user(api_key = api_key, user_id = 'CESPIRA')
+  # user_stats <- get_stats_user(api_key = api_key, user_id = '76561197996007619')
   # user_stats <- get_stats_user(api_key = api_key, user_id = '76561198263364899')
   # user_stats <- get_stats_user(api_key = api_key, user_id = '76561199150336868')
   user_stats <- get_stats_user(api_key = api_key, user_id = input$user_id)
+  
 })
 
 
@@ -109,6 +110,7 @@ main_kpis <- eventReactive(input$go, {
   return(kpi)
   
 })
+
 
 
 # WEAPON ANALYSIS
@@ -297,8 +299,6 @@ weapon <- eventReactive(input$go, {
 # MAP ANALYSIS
 map_stats <- eventReactive(input$go, {
   
-  cols <- c(win = 0, won = 0, rounds = 0)
-  
   map_stats <- user_stats() %>%
     filter(type == 'maps') %>%
     mutate(
@@ -309,6 +309,9 @@ map_stats <- eventReactive(input$go, {
       ) 
     ) %>%
     distinct(name_match, stat_type, value) %>%
+    group_by(name_match, stat_type) %>%
+    summarise(value = sum(value, na.rm = TRUE)) %>%
+    ungroup() %>%
     pivot_wider(
       names_from = stat_type, 
       id_cols = name_match, 
@@ -386,12 +389,6 @@ map <- eventReactive(input$go, {
   
   return(map_ui)
 })
-
-
-
-
-
-
 
 
 

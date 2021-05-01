@@ -55,7 +55,7 @@ about <- tabItem(
         tags$b("Friends Data.")
       ),
       
-      h3(tags$b("Home:")),
+      h3(tags$b(icon("award"), "Home:")),
       h4(
         'The first thing you must do to use the entire interface is to jump on the',
         tags$b('Home'), 
@@ -72,7 +72,7 @@ about <- tabItem(
       
       br(),
       
-      h3(tags$b("Individual Data:")),
+      h3(tags$b(icon("skull-crossbones"), "Individual Data:")),
       h4(
         "NICE! Now you can jump on the",
         tags$b("Individual Data"), 
@@ -83,7 +83,7 @@ about <- tabItem(
       
       br(),
       
-      h3(tags$b("Friends Data:")),
+      h3(tags$b(icon("book-dead"), "Friends Data:")),
       h4(
         "You can also go to the",
         tags$b("Friends Data"), 

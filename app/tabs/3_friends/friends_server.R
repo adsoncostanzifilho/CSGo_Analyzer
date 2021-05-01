@@ -1,4 +1,21 @@
 #-- FRIENDS SERVER --#
+# aux function for create the skull scale in the dream team table #
+rating_skull <- function(rating, max_rating = 10) {
+  star_icon <- function(empty = FALSE) {
+    tagAppendAttributes(
+      shiny::icon("skull"),
+      style = paste("color:", if (empty) "#edf0f2" else "#ce8404"),
+      "aria-hidden" = "true"
+    )
+  }
+  rounded_rating <- floor(rating + 0.5)  # always round up
+  stars <- lapply(seq_len(max_rating), function(i) {
+    if (i <= rounded_rating) star_icon() else star_icon(empty = TRUE)
+  })
+  label <- sprintf("%s out of %s skulls", rating, max_rating)
+  div(title = label, role = "img", stars)
+}
+
 
 # FRIENDS WELCOME
 friends_welcome <- eventReactive(input$go, {
@@ -35,16 +52,11 @@ friends_stats <- eventReactive(input$go, {
     bind_rows(user_stats) %>%
     left_join(friends_profile, by = c("player_name" = "personaname"))
   
-  ttt <<- friends_stats
-  
   return(friends_stats)
 })
 
-
-
-# COMPARE FRIENDS
-friends_radar <- reactive({
- 
+# FRIENDS STATS METRICS
+friends_stats_metric <- eventReactive(input$go, {
   friends_stats <- friends_stats()
   
   
@@ -93,13 +105,13 @@ friends_radar <- reactive({
     ) %>% 
     ungroup()
   
- 
+  
   
   # Final Data
   df_final <- df_wins %>% 
     left_join(df_performance, by = 'player_name') %>% 
     left_join(df_efficiency, by = 'player_name') %>% 
-    left_join(friends_stats %>% distinct(player_name, avatarfull), by = 'player_name') %>%
+    left_join(friends_stats %>% distinct(player_name, avatarfull, profileurl), by = 'player_name') %>%
     mutate_at(
       vars(
         total_rounds_win, 
@@ -114,6 +126,19 @@ friends_radar <- reactive({
     mutate_if(is.numeric, function(x){(x-min(x))/(max(x)-min(x))}) %>% # scale range 0 - 1
     mutate_if(is.numeric, round, 2)
   
+  return(df_final)
+  
+})
+
+
+
+
+
+# COMPARE FRIENDS
+friends_radar <- reactive({
+ 
+  df_final <- friends_stats_metric()
+  teste <<- df_final
   
   # loop to create the radar lists
   radr_list <- furrr::future_map(
@@ -197,6 +222,63 @@ comp_friends <-eventReactive(input$go, {
 
 
 # DREAM TEAM
+dream_team_table <- reactive({
+  
+  db_profile <- user_profile()
+  friends_stats_metric <- friends_stats_metric()
+  
+  friends_stats_metric <- friends_stats_metric %>%
+    mutate(
+      best_player_score = round(
+        (total_rounds_win 
+         + total_planted_bombs 
+         + total_mvps 
+         + total_contribution_score 
+         + hits_efficiency 
+         + total_kills)/6*10, 2)
+    )
+  
+  player <- friends_stats_metric %>%
+    # filter(player_name == 'Mlk da Escopeta')
+    filter(player_name == db_profile$personaname)
+  
+  sel_friends <- friends_stats_metric %>%
+    # filter(player_name != 'Mlk da Escopeta') %>%
+    filter(player_name != db_profile$personaname) %>%
+    top_n(n = 4, wt = best_player_score) %>%
+    bind_rows(player) %>% 
+    arrange(desc(best_player_score)) %>%
+    select(avatarfull, player_name, best_player_score, profileurl) %>%
+    mutate(
+      #avatarfull = paste0("<div><a href =",profileurl, ">","< img src = '",avatarfull, "' class = 'table_img'> </a> </div>")
+      avatarfull = paste0('<img src = ',avatarfull, " class = 'table_img'> ")
+    ) %>%
+    rename(
+      "Player Avatar" = "avatarfull",
+      "Player Name" = "player_name",
+      "Score" ="best_player_score"
+    )
+    
+  tab_return <- reactable(
+    sel_friends,
+    columns = list(
+      profileurl = colDef(show = FALSE),
+      `Player Avatar` = colDef(
+        sortable = FALSE,
+        html = TRUE,
+        align = "center",
+      ),
+      `Player Name` = colDef(
+        # maxWidth = 200
+      ),
+      Score = colDef(
+        cell = function(Score) rating_skull(Score))
+    )
+  )
+  
+  return(tab_return)
+})
+
 dream_team <- eventReactive(input$go, {
   
   dream_ream <- column(
@@ -205,7 +287,8 @@ dream_team <- eventReactive(input$go, {
     h1("Dream Team"),
     shinydashboard::box(
       width = 12,
-      h2('tt2')
+      reactableOutput("dream_team_tab") %>%
+        withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
     )
   )
   
@@ -248,6 +331,7 @@ output$friends_welcome <- renderUI(friends_welcome())
 output$friends_radar <- renderHighchart(friends_radar())
 output$compare_friends <- renderUI(comp_friends())
 
+output$dream_team_tab <- renderReactable(dream_team_table())
 output$dream_team <- renderUI(dream_team())
 
 output$whole_page_friends <- renderUI(whole_page_friends())
