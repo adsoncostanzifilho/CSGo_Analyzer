@@ -15,7 +15,7 @@ require(reactablefmtr)
 
 
 # set plan to collect the data app in parallel
-future::plan(future::multisession, workers = parallel::detectCores())
+#future::plan(future::multiprocess, workers = future::availableCores())
 
 # SET CREDENTIALS
 source('credentials/api_key.R')
@@ -32,12 +32,15 @@ source("tabs/4_about/about_ui.R")
 ui <- shinydashboardPlus::dashboardPage(
   
   # PAGE NAME
-  title = "CS Analyzer", 
+  title = "CSGO Analyzer", 
   
   
   # HEADER
   dashboardHeader(
-    title = tags$img(src = 'img/cs_logo.PNG', class = 'main_logo')
+    title = tags$a(
+      href = "https://adsoncostanzi.shinyapps.io/csgoanalyzer/",
+      tags$img(src = 'img/cs_logo.PNG', class = 'main_logo')
+    ) 
   ),
   
   

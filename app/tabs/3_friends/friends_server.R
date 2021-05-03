@@ -138,7 +138,6 @@ friends_stats_metric <- eventReactive(input$go, {
 friends_radar <- reactive({
  
   df_final <- friends_stats_metric()
-  teste <<- df_final
   
   # loop to create the radar lists
   radr_list <- furrr::future_map(
@@ -211,6 +210,7 @@ comp_friends <-eventReactive(input$go, {
     h1("Compare Friends"),
     shinydashboard::box(
       width = 12,
+      class = "box_radar",
       highchartOutput('friends_radar')  %>%
         withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
     )
@@ -239,44 +239,114 @@ dream_team_table <- reactive({
     )
   
   player <- friends_stats_metric %>%
-    # filter(player_name == 'Mlk da Escopeta')
     filter(player_name == db_profile$personaname)
   
   sel_friends <- friends_stats_metric %>%
-    # filter(player_name != 'Mlk da Escopeta') %>%
     filter(player_name != db_profile$personaname) %>%
     top_n(n = 4, wt = best_player_score) %>%
     bind_rows(player) %>% 
     arrange(desc(best_player_score)) %>%
-    select(avatarfull, player_name, best_player_score, profileurl) %>%
-    mutate(
-      #avatarfull = paste0("<div><a href =",profileurl, ">","< img src = '",avatarfull, "' class = 'table_img'> </a> </div>")
-      avatarfull = paste0('<img src = ',avatarfull, " class = 'table_img'> ")
-    ) %>%
-    rename(
-      "Player Avatar" = "avatarfull",
-      "Player Name" = "player_name",
-      "Score" ="best_player_score"
-    )
+    select(avatarfull, player_name, best_player_score, profileurl)
     
+  
   tab_return <- reactable(
     sel_friends,
+    rowClass = function(index) {
+      if(sel_friends$player_name[index] == db_profile$personaname){
+        "player_tab_high"
+      }
+    },
+    
     columns = list(
       profileurl = colDef(show = FALSE),
-      `Player Avatar` = colDef(
-        sortable = FALSE,
-        html = TRUE,
+      
+      avatarfull = colDef(
+        name = "Player Avatar",
         align = "center",
+        sortable = FALSE,
+        cell = function(value, index) {
+          htmltools::tags$a(
+            href = sel_friends$profileurl[index],
+            target = "_blank",
+            htmltools::tags$img(src = value, class = 'table_img')
+          )
+        }),
+      
+      player_name = colDef(
+        name = "Player Name"
       ),
-      `Player Name` = colDef(
-        # maxWidth = 200
-      ),
-      Score = colDef(
-        cell = function(Score) rating_skull(Score))
+      best_player_score = colDef(
+        name = "Score",
+        cell = function(best_player_score) rating_skull(best_player_score)
+      )
     )
   )
   
   return(tab_return)
+})
+
+all_friends_table <-reactive({
+  
+  db_profile <- user_profile()
+  friends_stats_metric <- friends_stats_metric()
+  
+  friends_tab <- friends_stats_metric %>%
+    mutate(
+      best_player_score = round(
+        (total_rounds_win 
+         + total_planted_bombs 
+         + total_mvps 
+         + total_contribution_score 
+         + hits_efficiency 
+         + total_kills)/6*10, 2)
+    ) %>%
+    arrange(desc(best_player_score)) %>%
+    select(avatarfull, player_name, best_player_score, profileurl)
+    
+    
+  tab_return <- reactable(
+    friends_tab,
+    filterable = TRUE,
+    defaultPageSize = 5,
+    rowClass = function(index) {
+      if (friends_tab$player_name[index] == db_profile$personaname) {
+        "player_tab_high"
+      }
+    },
+    
+    columns = list(
+      profileurl = colDef(show = FALSE),
+      
+      avatarfull = colDef(
+        name = "Player Avatar",
+        align = "center",
+        sortable = FALSE,
+        filterable = FALSE,
+        cell = function(value, index) {
+        htmltools::tags$a(
+          href = friends_tab$profileurl[index],
+          target = "_blank",
+          htmltools::tags$img(src = value, class = 'table_img_all')
+        )
+      }),
+      
+      player_name = colDef(
+        name = "Player Name",
+        filterable = TRUE
+      ),
+      best_player_score = colDef(
+        name = "Score",
+        cell = function(best_player_score) rating_skull(best_player_score),
+        filterable = TRUE
+      )
+    )
+  )
+  
+  return(tab_return)
+  
+    
+  
+  
 })
 
 dream_team <- eventReactive(input$go, {
@@ -287,9 +357,21 @@ dream_team <- eventReactive(input$go, {
     h1("Dream Team"),
     shinydashboard::box(
       width = 12,
-      reactableOutput("dream_team_tab") %>%
-        withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+      class = "box_radar",
+      tabsetPanel(
+        tabPanel(
+          title = "Dream Team",
+          reactableOutput("dream_team_tab") %>%
+            withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+        ),
+        tabPanel(
+          title = "Search Friends",
+          reactableOutput("all_friends_tab") %>%
+            withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+        )
+      )
     )
+    
   )
   
   return(dream_ream)
@@ -332,6 +414,7 @@ output$friends_radar <- renderHighchart(friends_radar())
 output$compare_friends <- renderUI(comp_friends())
 
 output$dream_team_tab <- renderReactable(dream_team_table())
+output$all_friends_tab <- renderReactable(all_friends_table())
 output$dream_team <- renderUI(dream_team())
 
 output$whole_page_friends <- renderUI(whole_page_friends())

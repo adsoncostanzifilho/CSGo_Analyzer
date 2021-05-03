@@ -419,9 +419,37 @@ path.highcharts-legend-nav-active{
 /* dream team table */
 .table_img {
   vertical-align: middle;
-  height: 58px;
+  height: 63.4px;
   margin-right: 20px;
   border-radius: 50%;
   border: 2px solid #232a30;
+}
+
+.table_img_all {
+  vertical-align: middle;
+  height: 45px;
+  margin-right: 20px;
+  border-radius: 50%;
+  border: 2px solid #232a30;
+}
+
+/*hichlight player in the table*/
+.player_tab_high {
+  font-weight: bold;
+  background-color: #232a3038;
+}
+
+/*tabset link*/
+.nav>li>a {
+  color: #232a30 !important;
+}
+
+/* Radar */
+.box_radar{
+  height: 500px !important;
+}
+
+#friends_radar {
+  margin-top: 5%;
 }
 
