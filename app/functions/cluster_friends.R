@@ -5,7 +5,7 @@ require(stringr)
 require(tidyr)
 require(janitor)
 require(factoextra)
-#require(cluster)
+require(cluster)
 require(psych)
 
 user_id = '76561198263364899'
@@ -84,7 +84,7 @@ cluster_players <- function(api_key = 'B8A56746036078F2D655CB3F1073F7DF' , user_
     #------------------------------------------------------------------------------#
     
     distance <- get_dist(lista2)
-    fviz_dist(distance, gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
+    #fviz_dist(distance, gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07"))
     
     sill <- factoextra::fviz_nbclust(lista2, kmeans, method = "silhouette")
     
@@ -92,19 +92,26 @@ cluster_players <- function(api_key = 'B8A56746036078F2D655CB3F1073F7DF' , user_
     
     # compute gap statistic
     # set.seed(123)
-    # gap_stat <- clusGap(lista2, FUN = kmeans, nstart = 25,
-    #                     K.max = 5, B = 200)
+    # gap_stat <- cluster::clusGap(lista2, FUN = kmeans, nstart = 25,
+    #                     K.max = 12, B = 500)
     # 
     # fviz_gap_stat(gap_stat)
     
     kmeans_cluster <- kmeans(lista2, centers = num_centroids, nstart = 25)
     
-    plot_clust <- fviz_cluster(kmeans_cluster, data = lista2) +
-      ylab("") + 
-      xlab("") + 
-      theme_bw()
+    plot_clust <- fviz_cluster(kmeans_cluster, data = lista2)
     
-    return(plot_clust)
+    hc_plot <- plot_clust$data %>% 
+      hchart(., 
+             type = "scatter", 
+             hcaes(x = x, 
+                   y = y, 
+                   group = cluster)) %>%
+      hc_xAxis(title = list(text = "Dim 1")) %>% 
+      hc_yAxis(title = list(text = "Dim 2")) %>% 
+      hc_title(text = 'Cluster Plot')
+    
+    return(hc_plot)
     
 }
   
