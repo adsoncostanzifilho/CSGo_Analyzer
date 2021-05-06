@@ -20,7 +20,7 @@ R package [CSGo](https://adsoncostanzifilho.github.io/CSGo/).
 The interface is divided into 3 main views, available on the left menu:
 **Home**, **Individual Data**, and **Friends Data**.
 
-# Home:
+### Home:
 
 The first thing you must do to use the entire interface is to jump on
 the Home tab on the left menu and collect some data. Once there, you
@@ -29,13 +29,13 @@ must provide (any) Steam ID and press GO !
 PS: If you don’t have a Steam ID to search, feel free to use Rodrigo’s
 ID ( 76561198263364899 )!
 
-# Individual Data:
+### Individual Data:
 
 NICE! Now you can go to the Individual Data tab to see some analysis on
 the player level. This tab will bring you the main KPIs as well as some
 analysis regarding the best weapons and maps for the searched player!
 
-# Friends Data:
+### Friends Data:
 
 You can also go to the Friends Data tab to see how the player’s friends
 are doing in the game! Here you will be able to compare the searched
