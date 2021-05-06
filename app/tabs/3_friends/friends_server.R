@@ -12,7 +12,7 @@ rating_skull <- function(rating, max_rating = 10) {
   stars <- lapply(seq_len(max_rating), function(i) {
     if (i <= rounded_rating) star_icon() else star_icon(empty = TRUE)
   })
-  label <- sprintf("%s out of %s skulls", rating, max_rating)
+  label <- sprintf("%s out of %s", rating, max_rating)
   div(title = label, role = "img", stars)
 }
 
@@ -41,7 +41,7 @@ friends_stats <- eventReactive(input$go, {
   # Get data
   user_profile <- user_profile()
   user_stats <- user_stats()
-  friends <- get_stats_friends(api_key = api_key, user_id = input$user_id, n_return = 30)
+  friends <- get_stats_friends(api_key = api_key, user_id = input$user_id, n_return = 15)
   
   # Bind Individual rows to the friends data
   friends_profile <- friends$friends %>%
@@ -51,7 +51,7 @@ friends_stats <- eventReactive(input$go, {
   friends_stats <- friends$friends_stats %>%
     bind_rows(user_stats) %>%
     left_join(friends_profile, by = c("player_name" = "personaname"))
-  
+
   return(friends_stats)
 })
 
@@ -202,7 +202,7 @@ friends_radar <- reactive({
   return(radar)
 }) 
 
-comp_friends <-eventReactive(input$go, {
+comp_friends <- eventReactive(input$go, {
   
   comp_friends <- column(
     width = 6,
@@ -379,6 +379,139 @@ dream_team <- eventReactive(input$go, {
 
 
 
+# CLUSTER
+friends_cluster <- eventReactive(input$go,{
+  
+  friends_stats <- friends_stats() %>%
+    arrange(player_name, name, value)
+    
+
+  data_to_clust <- friends_stats %>% 
+    select(name, value, player_name) %>% 
+    unique() %>% 
+    pivot_wider(
+      names_from = name, 
+      id_cols = player_name, 
+      values_from = value
+    ) %>%
+    textshape::column_to_rownames('player_name') %>%
+    janitor::remove_constant() %>% 
+    mutate_all(~(replace_na(.,0))) #input zero if non information
+  
+  # scaling the var
+  std_df <- data_to_clust %>%
+    mutate_if(is.numeric, scale) %>%
+    mutate_all(~(replace_na(.,0))) %>% 
+    janitor::remove_constant()
+  
+  # components
+  fit <- prcomp(std_df)
+  
+  n_comp <- factoextra::get_eigenvalue(fit) %>% 
+    filter(cumulative.variance.percent < 81) %>%  # components to have at least  80% 
+    nrow()
+  
+  # principal componentes
+  pca_rot <- principal(
+    std_df,
+    nfactors = n_comp,
+    n.obs = nrow(std_df), 
+    rotate = "varimax",
+    scores = TRUE
+  )
+  
+  list_score <- factor.scores(
+    std_df,
+    pca_rot, 
+    Phi = NULL, 
+    method = c(
+      "Thurstone",
+      "tenBerge",
+      "Anderson",
+      "Bartlett",
+      "Harman",
+      "components"
+    ),
+    rho = NULL)
+    
+  list_score2 <- list_score$scores %>% 
+    data.frame() 
+  
+  # distances
+  distance <- factoextra::get_dist(list_score2)
+  
+  sill <- factoextra::fviz_nbclust(list_score2, kmeans, method = "silhouette", k.max = nrow(list_score2)-1)
+  
+  num_centroids <- which(sill[["data"]]$y == max(sill[["data"]]$y))
+  
+  # Kmeans
+  kmeans_cluster <- kmeans(list_score2, centers = num_centroids, nstart = 25)
+  
+  plot_clust <- fviz_cluster(kmeans_cluster, data = list_score2)
+  
+  # data frame to plot
+  plot_df <- plot_clust$data %>%
+    left_join(friends_stats %>% distinct(player_name, avatarfull), by = c("name"="player_name"))
+  
+  
+  # cluster series to plot de polygons
+  ds <- purrr::map(
+    .x = levels(plot_df$cluster),
+    .f = function(index){
+      temp <- plot_df %>%
+        filter(cluster == index)
+      dt <- cbind(temp$x, temp$y)
+      dt <- igraph::convex_hull(dt)
+      dt <- list_parse2(as.data.frame(dt$rescoords))
+      list(
+        data = dt, 
+        #name = paste("Cluster", x),
+        type = "polygon",
+        id = index,
+        showInLegend = F,
+        opacity = 0.5,
+        enableMouseTracking = F
+      )
+    })
+  
+  
+    
+  cluster_plot <- plot_df %>%
+    hchart(
+      type = "scatter", 
+      hcaes(
+        x = x, 
+        y = y, 
+        group = cluster)) %>%
+    hc_add_series_list(ds) %>%
+    hc_tooltip(
+      useHTML = TRUE,
+      formatter = JS(
+        'function () { 
+          return "Player: " + "<b>" + this.point.name + "</b>"  
+          + " <hr class=hr_tooltip >" 
+          + "<div><img src=" + this.point.avatarfull + " class=radar_img ></img></div>"
+          + " <br/> Cluster: " + "<b>" + this.point.cluster + "</b>" 
+        ;}'
+      )
+    ) %>%
+    hc_xAxis(title = list(text = "Dim 1")) %>%
+    hc_yAxis(
+      title = list(text = "Dim 2"),
+      tickLength = 0,
+      gridLineColor = 'transparent'
+    ) %>%
+    hc_colors(
+      colorRampPalette(
+        c("#5d79ae","#0c0f12", "#ccba7c", "#413a27", "#de9b35"))
+      (length(levels(plot_clust$data$cluster))))
+  
+  return(cluster_plot)
+  
+})
+
+
+
 # WHOLE PAGE 
 whole_page_friends <- eventReactive(input$go, {
   
@@ -395,7 +528,21 @@ whole_page_friends <- eventReactive(input$go, {
       uiOutput('compare_friends'), 
       
       uiOutput('dream_team')
+    ),
+    
+    br(),
+    column(
+      width = 12,
+      class = 'cluster_col',
+      
+      h1("Friends' Groups", class = "h1_center"),
+      shinydashboard::box(
+        width = 10,
+        highchartOutput('cluster_plot')  %>%
+          withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+      )
     )
+    
   )
   
   return(whole_pg)
@@ -416,5 +563,7 @@ output$compare_friends <- renderUI(comp_friends())
 output$dream_team_tab <- renderReactable(dream_team_table())
 output$all_friends_tab <- renderReactable(all_friends_table())
 output$dream_team <- renderUI(dream_team())
+
+output$cluster_plot <- renderHighchart(friends_cluster())
 
 output$whole_page_friends <- renderUI(whole_page_friends())

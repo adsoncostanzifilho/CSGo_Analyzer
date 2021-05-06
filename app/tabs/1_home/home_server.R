@@ -32,9 +32,7 @@ user_box <- eventReactive(input$go, {
     user_return <- column(
       width = 12,
       class = 'home_welcome',
-      HTML('
-          <h3>Please check if your accont status is <b>public</b>, 
-           make sure your <b>Steam ID</b> is spelled correctly and <b>try again</b>!</h3>'))
+      HTML('<h3> Please fill the <b>Steam ID</b> and  <b>try again</b>!</h3>'))
     
     return(user_return)
   }

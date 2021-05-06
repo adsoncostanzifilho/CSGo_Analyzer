@@ -12,7 +12,11 @@ require(dplyr)
 require(highcharter)
 require(reactable)
 require(reactablefmtr)
-
+require(textshape)
+require(janitor)
+require(factoextra)
+require(psych)
+require(factoextra)
 
 # set plan to collect the data app in parallel
 #future::plan(future::multiprocess, workers = future::availableCores())

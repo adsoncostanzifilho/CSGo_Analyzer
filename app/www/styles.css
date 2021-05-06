@@ -446,10 +446,22 @@ path.highcharts-legend-nav-active{
 
 /* Radar */
 .box_radar{
-  height: 500px !important;
+  height: 550px !important;
 }
 
 #friends_radar {
   margin-top: 5%;
 }
 
+.h1_center{
+  text-align: center !important;
+  padding-top: 620px;
+}
+
+.cluster_col {
+  position: inherit !important;
+}
+
+#cluster_plot {
+  margin-top: 5%;
+}

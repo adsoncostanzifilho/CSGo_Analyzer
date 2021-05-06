@@ -93,9 +93,9 @@ main_kpis <- eventReactive(input$go, {
      valueBox(
        width = 10,
        value = formatC(
-         user_stats %>%
-           filter(name == 'total_time_played') %>%
-           .$value,
+         paste0(
+           round(user_stats %>% filter(name == 'total_time_played') %>% .$value / 3600, 0),
+           " h"),
          big.mark=','
        ),
        subtitle = "Time Played",
@@ -174,9 +174,7 @@ weapon_plot <- reactive({
     ) %>%
     hc_xAxis(title = list(text = "Shots")) %>%
     hc_yAxis(title = list(text = "Hits")) 
-    # hc_theme(
-    #   style = list(fontFamily = "Quantico")
-    # )
+
   
   
   return(plot)

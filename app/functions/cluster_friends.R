@@ -102,16 +102,96 @@ cluster_players <- function(api_key = 'B8A56746036078F2D655CB3F1073F7DF' , user_
     plot_clust <- fviz_cluster(kmeans_cluster, data = lista2)
     
     hc_plot <- plot_clust$data %>% 
-      hchart(., 
-             type = "scatter", 
-             hcaes(x = x, 
-                   y = y, 
-                   group = cluster)) %>%
+      hchart(
+        type = "scatter", 
+        hcaes(
+          x = x, 
+          y = y, 
+          group = cluster)) %>%
+      hc_chart(type = "polygon", group = cluster) %>%
       hc_xAxis(title = list(text = "Dim 1")) %>% 
       hc_yAxis(title = list(text = "Dim 2")) %>% 
       hc_title(text = 'Cluster Plot')
     
     return(hc_plot)
+    
+    # cluster series to plot de polygons
+    ds2 <- purrr::map(
+      .x = levels(plot_clust$data$cluster),
+      .f = function(index){
+        temp <- plot_clust$data %>%
+          filter(cluster == index)
+        dt <- cbind(temp$x, temp$y)
+        dt <- igraph::convex_hull(dt)
+        dt <- list_parse2(as.data.frame(dt$rescoords))
+        list(
+          data = dt, 
+          #name = paste("Cluster", x),
+          type = "polygon",
+          id = x,
+          showInLegend = F,
+          opacity = 0.5,
+          enableMouseTracking = F
+        )
+      })
+    
+      highchart() %>%
+      hc_add_series_list(ds2) %>%
+      hc_add_series(
+        data = plot_clust$data,
+        type = "scatter",  
+        hcaes(
+          x = x, 
+          y = y, 
+          group = cluster)
+      ) %>%
+        # hc_tooltip(
+        #   useHTML = TRUE,
+        #   formatter = JS(
+        #     'function () {
+        #   return "Weapon: " + "<b>" + this.point.name + "</b>"
+        #   + " <hr class=hr_tooltip >"
+        #   + "<div><img src=" + this.point.weapon_photo + " class=weapon_img ></img></div>"
+        #   + " <br/> Hits: " + "<b>" + this.point.hits + "</b>"
+        #   + " <br/> Shots: " + "<b>" + this.point.x + "</b>"
+        #   + " <br/> Kills: " + "<b>" + this.point.kills + "</b>"
+        # ;}'
+        #   )
+        # ) %>%
+        hc_xAxis(title = list(text = "Dim 1")) %>%
+        hc_yAxis(title = list(text = "Dim 2")) %>%
+        hc_colors(
+          colorRampPalette(
+            c("#5d79ae","#0c0f12", "#ccba7c", "#413a27", "#de9b35"))
+          (length(levels(plot_clust$data$cluster))))
+      
+    
+        
+      
+      
+
+
+    
+    
+    
+    
+    set.seed(100)
+    ds3 <- purrr::map(seq(n), function(x){
+      xc <- round(rnorm(1, sd = 2), 2)
+      yc <- round(rnorm(1, sd = 2), 2)
+      dt <- cbind(rnorm(200, xc), rnorm(200, yc))
+      dt <- list_parse2(as.data.frame(dt))
+      list(data = dt, name = sprintf("%s, %s", xc, yc), type = "scatter", linkedTo = n)
+    })
+    
+    cols <- hex_to_rgba(substr(viridis(n), 0, 7), alpha = 0.5)
+    
+    highchart() %>% 
+      hc_colors(colors = cols) %>% 
+      hc_add_series_list(ds2) %>% 
+      hc_add_series_list(ds3)
+    
+    
     
 }
   

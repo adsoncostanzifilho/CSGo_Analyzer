@@ -102,7 +102,7 @@ about <- tabItem(
       hr(),
       h5(
         "**  To not overload Steam's API, only the", 
-        tags$b("30 most recent friends"),
+        tags$b("15 most recent friends"),
         "of the searched player will be considered. You can collect all your friends' data by using the", 
         tags$b("get_stats_friends"), 
         "function from the CSGo package!",
