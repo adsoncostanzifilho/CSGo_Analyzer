@@ -17,6 +17,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The **CS GO Analyzer** is a self-service interface (powered by R and `shiny`) designed to make it easier to analyze your own Counter-Strike Global Offensive data. If you like **CS GO** and **R** probably you will enjoy this repository!
 
+The tool is online on shinyapps' repository at the address https://adsoncostanzi.shinyapps.io/csgoanalyzer/.
+
+*PS*: To run this interface locally it is necessary to have your own Steam' credentials (API Key). You will find [here](https://adsoncostanzifilho.github.io/CSGo/articles/auth.html) the guidance on how to get a Steam' API Key, or with you prefer you can run `vignette("auth", package = "CSGo")` in R.
+
+Then you must create a file called "api_key.R" inside the "credentials" folder (app>credentials>api_key.R) assigning your API key to an object called api_key, like this:
+
+`api_key <<- 'YOUR API KEY'`
+
 
 ## The Data
 
@@ -40,6 +48,7 @@ NICE! Now you can go to the Individual Data tab to see some analysis on the play
 ### Friends Data:
 
 You can also go to the Friends Data tab to see how the player's friends are doing in the game! Here you will be able to compare the searched player among their friends, the best players to play with, and also the friend most similar to the searched player.
+
 
 ![](app/www/img/csgo_demo.gif)
 

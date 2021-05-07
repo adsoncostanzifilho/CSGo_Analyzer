@@ -362,6 +362,9 @@ div.box-body .shiny-input-container {
   height: 100% !important;
   padding-top: 45%;
 }
+.load-3{
+  margin:10% !important;
+}
 
 .line {
   background-color: #ce8404 !important;

@@ -9,6 +9,21 @@ The **CS GO Analyzer** is a self-service interface (powered by R and
 Global Offensive data. If you like **CS GO** and **R** probably you will
 enjoy this repository!
 
+The tool is online on shinyapps’ repository at the address
+<https://adsoncostanzi.shinyapps.io/csgoanalyzer/>.
+
+*PS*: To run this interface locally it is necessary to have your own
+Steam’ credentials (API Key). You will find
+[here](https://adsoncostanzifilho.github.io/CSGo/articles/auth.html) the
+guidance on how to get a Steam’ API Key, or with you prefer you can run
+`vignette("auth", package = "CSGo")` in R.
+
+Then you must create a file called “api\_key.R” inside the “credentials”
+folder (app&gt;credentials&gt;api\_key.R) assigning your API key to an
+object called api\_key, like this:
+
+`api_key <<- 'YOUR API KEY'`
+
 ## The Data
 
 The data used in this interface is pulled online from [Steam’s

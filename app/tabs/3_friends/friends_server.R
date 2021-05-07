@@ -212,7 +212,7 @@ comp_friends <- eventReactive(input$go, {
       width = 12,
       class = "box_radar",
       highchartOutput('friends_radar')  %>%
-        withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+        shinycssloaders::withSpinner(type = 7, color = "#ce8404", id = "my_loader")
     )
   )
   
@@ -362,12 +362,12 @@ dream_team <- eventReactive(input$go, {
         tabPanel(
           title = "Dream Team",
           reactableOutput("dream_team_tab") %>%
-            withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+            shinycssloaders::withSpinner(type = 7, color = "#ce8404", id = "my_loader")
         ),
         tabPanel(
           title = "Search Friends",
           reactableOutput("all_friends_tab") %>%
-            withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+            shinycssloaders::withSpinner(type = 7, color = "#ce8404", id = "my_loader")
         )
       )
     )
@@ -539,7 +539,7 @@ whole_page_friends <- eventReactive(input$go, {
       shinydashboard::box(
         width = 10,
         highchartOutput('cluster_plot')  %>%
-          withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+          shinycssloaders::withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
       )
     )
     

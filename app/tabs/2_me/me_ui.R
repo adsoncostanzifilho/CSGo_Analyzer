@@ -4,7 +4,8 @@ me <- tabItem(
   
   fluidRow(
     uiOutput('user_welcome') %>%
-      withSpinner(type = 7, color = "#ce8404"),
+      shinycustomloader::withLoader(type = "html", loader = "loader3"),
+      #shinycssloaders::withSpinner(type = 7, color = "#ce8404"),
     
     uiOutput('main_kpis'),
     

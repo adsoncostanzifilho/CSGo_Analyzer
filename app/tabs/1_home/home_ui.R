@@ -56,7 +56,7 @@ home <- tabItem(
     br(),
     
     uiOutput('user_info') %>%
-      withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
+      shinycssloaders::withSpinner(type = 7, color = "#ce8404", id = "my_loader") 
     
   )
   

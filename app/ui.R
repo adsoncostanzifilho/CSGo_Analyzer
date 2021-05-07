@@ -20,6 +20,7 @@ require(factoextra)
 
 # set plan to collect the data app in parallel
 #future::plan(future::multiprocess, workers = future::availableCores())
+future::plan(future::multisession)
 
 # SET CREDENTIALS
 source('credentials/api_key.R')
