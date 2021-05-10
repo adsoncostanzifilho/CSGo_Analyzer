@@ -64,6 +64,8 @@ ui <- shinydashboardPlus::dashboardPage(
   dashboardBody(
 
     tags$head(
+      # GA
+      #includeHTML(("www/googleanalytics.HTML")),
       
       # SCROLL FIX
       tags$style(
@@ -75,6 +77,7 @@ ui <- shinydashboardPlus::dashboardPage(
       
       # THEME 
       tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
+      
     ),
     
     

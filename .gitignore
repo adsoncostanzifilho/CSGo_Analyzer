@@ -7,5 +7,7 @@
 api_documents.txt
 *.txt
 set_key.R
-api_key.R
+
 csgoanalyzer.dcf
+googleanalytics.HTML
+keys.R
